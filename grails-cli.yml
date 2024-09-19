@@ -1,0 +1,8 @@
+applicationType: web
+defaultPackage: br.com.pinedu
+testFramework: junit
+sourceLanguage: groovy
+buildTool: gradle
+gormImpl: gorm-hibernate5
+servletImpl: spring-boot-starter-jetty
+features: [app-name, asciidoctor, asset-pipeline-grails, base, cache-ehcache, gorm-hibernate5, gradle, grails-application, grails-console, grails-dependencies, grails-gorm-testing-support, grails-gradle-plugin, grails-gsp, grails-quartz, grails-url-mappings, grails-web, grails-web-console, grails-web-testing-support, hibernate-validator, junit, logbackGroovy, micronaut-inject-groovy, postgres, readme, scaffolding, shade, spring-boot-autoconfigure, spring-boot-devtools, spring-boot-starter, spring-boot-starter-jetty, testcontainers, yaml]

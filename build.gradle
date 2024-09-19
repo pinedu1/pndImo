@@ -1,0 +1,117 @@
+buildscript {
+    dependencies {
+        classpath 'org.grails.plugins:database-migration:5.0.0-SNAPSHOT'
+    }
+}
+plugins {
+    id "groovy"
+    id "org.grails.grails-gsp"
+    id "org.grails.grails-web"
+    id "war"
+    id "idea"
+    id "com.bertramlabs.asset-pipeline"
+    id "application"
+    id "org.asciidoctor.jvm.convert"
+    id "eclipse"
+    //id 'org.grails.plugins.database-migration' version '5.0.0-SNAPSHOT'
+}
+group = "br.com.pinedu"
+apply from: "gradle/asciidoc.gradle"
+//apply plugin:"org.grails.grails-database-migration"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://repo.grails.org/grails/core/" }
+}
+
+configurations {
+    all {
+    }
+}
+sourceSets {
+    main {
+        resources {
+            srcDir 'grails-app/migrations'
+        }
+    }
+}
+dependencies {
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    implementation("io.github.virtualdogbert:logback-groovy-config:1.12.4")
+    implementation("org.grails:grails-core")
+    implementation("org.grails:grails-logging")
+    implementation("org.grails:grails-plugin-databinding")
+    implementation("org.grails:grails-plugin-i18n")
+    implementation("org.grails:grails-plugin-interceptors")
+    implementation("org.grails:grails-plugin-rest")
+    implementation("org.grails:grails-plugin-services")
+    implementation("org.grails:grails-plugin-url-mappings")
+    implementation("org.grails:grails-web-boot")
+    implementation("org.grails.plugins:cache-ehcache:3.0.0")
+    implementation("org.grails.plugins:gsp")
+    implementation("org.liquibase:liquibase-core:4.19.0")
+    implementation("org.grails.plugins:hibernate5")
+    implementation("org.grails.plugins:quartz:3.0.0")
+    implementation("org.grails.plugins:scaffolding")
+    implementation "org.grails:grails-datastore-gorm:8.1.2"
+
+    implementation('org.grails.plugins:database-migration:5.0.0-SNAPSHOT')
+
+    implementation("org.hibernate:hibernate-validator:6.2.5.Final")
+    implementation("org.springframework.boot:spring-boot-autoconfigure")
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-jetty")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation( 'dk.glasius:external-config:4.0.0' )
+    compileOnly("io.micronaut:micronaut-inject-groovy")
+    console("org.grails:grails-console")
+    runtimeOnly("com.bertramlabs.plugins:asset-pipeline-grails:4.3.0")
+    runtimeOnly("org.apache.tomcat:tomcat-jdbc")
+    runtimeOnly("org.fusesource.jansi:jansi:1.18")
+    runtimeOnly("org.grails.plugins:grails-console:2.1.1")
+    runtimeOnly("org.postgresql:postgresql")
+    testImplementation("io.micronaut:micronaut-inject-groovy")
+    testImplementation("org.grails:grails-gorm-testing-support")
+    testImplementation("org.grails:grails-web-testing-support")
+    testImplementation("io.micronaut:micronaut-http-client")
+
+}
+
+application {
+    mainClass.set("br.com.pinedu.Application")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+}
+
+assets {
+    minifyJs = true
+    minifyCss = true
+}
+task listPlugins {
+    doLast {
+        repositories {
+            mavenLocal()
+        }
+
+        def pluginIds = []
+        configurations.all { config ->
+            if (config.isCanBeResolved()) {
+                config.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+                    if (artifact.moduleVersion.id.group.startsWith('org.grails.plugins')) {
+                        pluginIds << artifact.moduleVersion.id
+                    }
+                }
+            }
+        }
+
+        println "Plugins disponíveis:"
+        pluginIds.each { id ->
+            println "- ${id}"
+        }
+    }
+}

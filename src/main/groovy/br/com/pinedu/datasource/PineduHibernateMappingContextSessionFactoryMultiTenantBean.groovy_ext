@@ -1,0 +1,396 @@
+package br.com.pinedu.datasource
+
+
+import groovy.transform.CompileStatic
+import org.grails.orm.hibernate.HibernateEventListeners
+import org.grails.orm.hibernate.HibernateMappingContextSessionFactoryBean
+import org.grails.orm.hibernate.cfg.HibernateMappingContext
+import org.grails.orm.hibernate.cfg.HibernateMappingContextConfiguration
+import org.hibernate.Interceptor
+import org.hibernate.SessionFactory
+import org.hibernate.cfg.NamingStrategy
+import org.springframework.beans.BeansException
+import org.springframework.context.ApplicationContext
+import org.springframework.core.io.Resource
+import org.springframework.core.io.ResourceLoader
+import org.springframework.transaction.PlatformTransactionManager
+import javax.sql.DataSource
+
+/**
+ * A factory bean for creating the data sources
+ *
+ * @author Graeme Rocher
+ * @since 3.3
+ */
+@CompileStatic
+class PineduHibernateMappingContextSessionFactoryMultiTenantBean extends HibernateMappingContextSessionFactoryBean {
+	@Override
+	public void setBeanClassLoader(ClassLoader classLoader) {
+		super.setBeanClassLoader(classLoader)
+	}
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		println "*" * 80
+		super.afterPropertiesSet()
+		println "*" * 80
+	}
+	@Override
+	public PlatformTransactionManager getTransactionManager() {
+		return super.getTransactionManager();
+	}
+	@Override
+	public void setTransactionManager(PlatformTransactionManager transactionManager) {
+		super.setTransactionManager(transactionManager);
+	}
+	@Override
+	public void setHibernateMappingContext(HibernateMappingContext hibernateMappingContext) {
+		super.setHibernateMappingContext( hibernateMappingContext );
+	}
+	/**
+	 * Sets the class to be used for Hibernate Configuration.
+	 * @param configClass A subclass of the Hibernate Configuration class
+	 */
+	@Override
+	public void setConfigClass(Class<? extends HibernateMappingContextConfiguration> configClass) {
+		super.setConfigClass( configClass );
+	}
+	/**
+	 * Set the DataSource to be used by the SessionFactory.
+	 * If set, this will override corresponding settings in Hibernate properties.
+	 * <p>If this is set, the Hibernate settings should not define
+	 * a connection provider to avoid meaningless double configuration.
+	 */
+	@Override
+	public void setDataSource(DataSource dataSource) {
+		super.setDataSource( dataSource );
+	}
+	public DataSource getDataSource() {
+		return super.getDataSource();
+	}
+
+	/**
+	 * Set the location of a single Hibernate XML config file, for example as
+	 * classpath resource "classpath:hibernate.cfg.xml".
+	 * <p>Note: Can be omitted when all necessary properties and mapping
+	 * resources are specified locally via this bean.
+	 * @see org.hibernate.cfg.Configuration#configure(java.net.URL)
+	 */
+	@Override
+	public void setConfigLocation(Resource configLocation) {
+		super.setConfigLocation(  configLocation )
+	}
+
+	/**
+	 * Set the locations of multiple Hibernate XML config files, for example as
+	 * classpath resources "classpath:hibernate.cfg.xml,classpath:extension.cfg.xml".
+	 * <p>Note: Can be omitted when all necessary properties and mapping
+	 * resources are specified locally via this bean.
+	 * @see org.hibernate.cfg.Configuration#configure(java.net.URL)
+	 */
+	@Override
+	public void setConfigLocations(Resource[] configLocations) {
+		super.setConfigLocations(configLocations)
+	}
+	@Override
+	public Resource[] getConfigLocations() {
+		return super.getConfigLocations()
+	}
+
+	/**
+	 * Set Hibernate mapping resources to be found in the class path,
+	 * like "example.hbm.xml" or "mypackage/example.hbm.xml".
+	 * Analogous to mapping entries in a Hibernate XML config file.
+	 * Alternative to the more generic setMappingLocations method.
+	 * <p>Can be used to add to mappings from a Hibernate XML config file,
+	 * or to specify all mappings locally.
+	 * @see #setMappingLocations
+	 * @see org.hibernate.cfg.Configuration#addResource
+	 */
+	@Override
+	public void setMappingResources(String[] mappingResources) {
+		super.setMappingResources(mappingResources)
+	}
+	@Override
+	public String[] getMappingResources() {
+		return super.getMappingResources();
+	}
+
+	/**
+	 * Set locations of Hibernate mapping files, for example as classpath
+	 * resource "classpath:example.hbm.xml". Supports any resource location
+	 * via Spring's resource abstraction, for example relative paths like
+	 * "WEB-INF/mappings/example.hbm.xml" when running in an application context.
+	 * <p>Can be used to add to mappings from a Hibernate XML config file,
+	 * or to specify all mappings locally.
+	 * @see org.hibernate.cfg.Configuration#addInputStream
+	 */
+	@Override
+	public void setMappingLocations(Resource[] mappingLocations) {
+		super.setMappingLocations(mappingLocations);
+	}
+	@Override
+	public Resource[] getMappingLocations() {
+		return super.getMappingLocations();
+	}
+
+	/**
+	 * Set locations of cacheable Hibernate mapping files, for example as web app
+	 * resource "/WEB-INF/mapping/example.hbm.xml". Supports any resource location
+	 * via Spring's resource abstraction, as long as the resource can be resolved
+	 * in the file system.
+	 * <p>Can be used to add to mappings from a Hibernate XML config file,
+	 * or to specify all mappings locally.
+	 * @see org.hibernate.cfg.Configuration#addCacheableFile(java.io.File)
+	 */
+	@Override
+	public void setCacheableMappingLocations(Resource[] cacheableMappingLocations) {
+		super.setCacheableMappingLocations(cacheableMappingLocations);
+	}
+	@Override
+	public Resource[] getCacheableMappingLocations() {
+		return super.getCacheableMappingLocations();
+	}
+
+	/**
+	 * Set locations of jar files that contain Hibernate mapping resources,
+	 * like "WEB-INF/lib/example.hbm.jar".
+	 * <p>Can be used to add to mappings from a Hibernate XML config file,
+	 * or to specify all mappings locally.
+	 * @see org.hibernate.cfg.Configuration#addJar(java.io.File)
+	 */
+	@Override
+	public void setMappingJarLocations(Resource[] mappingJarLocations) {
+		super.setMappingJarLocations(mappingJarLocations);
+	}
+	@Override
+	public Resource[] getMappingJarLocations() {
+		return super.getMappingJarLocations();
+	}
+
+	/**
+	 * Set locations of directories that contain Hibernate mapping resources,
+	 * like "WEB-INF/mappings".
+	 * <p>Can be used to add to mappings from a Hibernate XML config file,
+	 * or to specify all mappings locally.
+	 * @see org.hibernate.cfg.Configuration#addDirectory(java.io.File)
+	 */
+	@Override
+	public void setMappingDirectoryLocations(Resource[] mappingDirectoryLocations) {
+		super.setMappingDirectoryLocations(mappingDirectoryLocations);
+	}
+	@Override
+	public Resource[] getMappingDirectoryLocations() {
+		return super.getMappingDirectoryLocations();
+	}
+
+	/**
+	 * Set a Hibernate entity interceptor that allows to inspect and change
+	 * property values before writing to and reading from the database.
+	 * Will get applied to any new Session created by this factory.
+	 * @see org.hibernate.cfg.Configuration#setInterceptor
+	 */
+	@Override
+	public void setEntityInterceptor(Interceptor entityInterceptor) {
+		super.setEntityInterceptor(entityInterceptor);
+	}
+	@Override
+	public Interceptor getEntityInterceptor() {
+		return super.getEntityInterceptor();
+	}
+
+	/**
+	 * Set a Hibernate NamingStrategy for the SessionFactory, determining the
+	 * physical column and table names given the info in the mapping document.
+	 */
+	@Override
+	public void setNamingStrategy(NamingStrategy namingStrategy) {
+		super.setNamingStrategy(namingStrategy);
+	}
+	@Override
+	public NamingStrategy getNamingStrategy() {
+		return super.getNamingStrategy();
+	}
+
+	/**
+	 * Set Hibernate properties, such as "hibernate.dialect".
+	 * <p>Note: Do not specify a transaction provider here when using
+	 * Spring-driven transactions. It is also advisable to omit connection
+	 * provider settings and use a Spring-set DataSource instead.
+	 * @see #setDataSource
+	 */
+	@Override
+	public void setHibernateProperties(Properties hibernateProperties) {
+		super.setHibernateProperties(hibernateProperties);
+	}
+
+	/**
+	 * Return the Hibernate properties, if any. Mainly available for
+	 * configuration through property paths that specify individual keys.
+	 */
+	@Override
+	public Properties getHibernateProperties() {
+		return super.getHibernateProperties();
+	}
+
+	/**
+	 * Specify annotated entity classes to register with this Hibernate SessionFactory.
+	 * @see org.hibernate.cfg.Configuration#addAnnotatedClass(Class)
+	 */
+	@Override
+	public void setAnnotatedClasses(Class<?>[] annotatedClasses) {
+		super.setAnnotatedClasses(annotatedClasses);
+	}
+	@Override
+	public Class<?>[] getAnnotatedClasses() {
+		return super.getAnnotatedClasses();
+	}
+
+	/**
+	 * Specify the names of annotated packages, for which package-level
+	 * annotation metadata will be read.
+	 * @see org.hibernate.cfg.Configuration#addPackage(String)
+	 */
+	@Override
+	public void setAnnotatedPackages(String[] annotatedPackages) {
+		super.setAnnotatedPackages(annotatedPackages);
+	}
+	@Override
+	public String[] getAnnotatedPackages() {
+		return super.getAnnotatedPackages();
+	}
+
+	/**
+	 * Specify packages to search for autodetection of your entity classes in the
+	 * classpath. This is analogous to Spring's component-scan feature
+	 * ({@link org.springframework.context.annotation.ClassPathBeanDefinitionScanner}).
+	 */
+	@Override
+	public void setPackagesToScan(String... packagesToScan) {
+		super.setPackagesToScan(packagesToScan);
+	}
+	@Override
+	public String[] getPackagesToScan() {
+		return super.getPackagesToScan();
+	}
+	@Override
+	public void setResourceLoader(ResourceLoader resourceLoader) {
+		super.setResourceLoader(resourceLoader);
+	}
+
+	/**
+	 * @param proxyIfReloadEnabled Sets whether a proxy should be created if reload is enabled
+	 */
+	@Override
+	public void setProxyIfReloadEnabled(boolean proxyIfReloadEnabled) {
+		super.setProxyIfReloadEnabled(proxyIfReloadEnabled);
+	}
+	@Override
+	public boolean isProxyIfReloadEnabled() {
+		return super.isProxyIfReloadEnabled();
+	}
+
+	/**
+	 * Sets class to be used for the Hibernate CurrentSessionContext.
+	 *
+	 * @param currentSessionContextClass An implementation of the CurrentSessionContext interface
+	 */
+	@Override
+	public void setCurrentSessionContextClass(Class<?> currentSessionContextClass) {
+		super.setCurrentSessionContextClass(currentSessionContextClass);
+	}
+	@Override
+	public Class<?> getCurrentSessionContextClass() {
+		return super.getCurrentSessionContextClass();
+	}
+	@Override
+	public Class<? extends HibernateMappingContextConfiguration> getConfigClass() {
+		return super.getConfigClass();
+	}
+	@Override
+	public void setHibernateEventListeners(final HibernateEventListeners listeners) {
+		super.setHibernateEventListeners(listeners);
+	}
+	@Override
+	public HibernateEventListeners getHibernateEventListeners() {
+		return super.getHibernateEventListeners();
+	}
+	@Override
+	public void setSessionFactoryBeanName(String name) {
+		super.setSessionFactoryBeanName(name);
+	}
+	@Override
+	public String getSessionFactoryBeanName() {
+		return super.getSessionFactoryBeanName();
+	}
+	@Override
+	public void setDataSourceName(String name) {
+		super.setDataSourceName(name);
+	}
+	@Override
+	public String getDataSourceName() {
+		return super.getDataSourceName();
+	}
+
+	/**
+	 * Specify the Hibernate event listeners to register, with listener types
+	 * as keys and listener objects as values. Instead of a single listener object,
+	 * you can also pass in a list or set of listeners objects as value.
+	 * <p>See the Hibernate documentation for further details on listener types
+	 * and associated listener interfaces.
+	 * @param eventListeners Map with listener type Strings as keys and
+	 * listener objects as values
+	 */
+	@Override
+	public void setEventListeners(Map<String, Object> eventListeners) {
+		super.setEventListeners(eventListeners);
+	}
+	@Override
+	public Map<String, Object> getEventListeners() {
+		return super.getEventListeners();
+	}
+	@Override
+	protected void buildSessionFactory() throws Exception {
+		super.buildSessionFactory()
+	}
+	@Override
+	protected SessionFactory doBuildSessionFactory() {
+		return super.doBuildSessionFactory();
+	}
+
+	/**
+	 * Return the Hibernate Configuration object used to build the SessionFactory.
+	 * Allows for access to configuration metadata stored there (rarely needed).
+	 * @throws IllegalStateException if the Configuration object has not been initialized yet
+	 */
+/*
+	public final Configuration getConfiguration() {
+		Assert.state(configuration != null, "Configuration not initialized yet");
+		return configuration;
+	}
+*/
+	@Override
+	public SessionFactory getObject() {
+		return super.getObject();
+	}
+	@Override
+	public Class<?> getObjectType() {
+		return super.getObjectType();
+	}
+	@Override
+	public boolean isSingleton() {
+		return super.isSingleton();
+	}
+	@Override
+	public void destroy() {
+		super.destroy()
+	}
+	@Override
+	protected HibernateMappingContextConfiguration newConfiguration() throws Exception {
+		return super.newConfiguration();
+	}
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		super.setApplicationContext(applicationContext);
+	}
+}
+

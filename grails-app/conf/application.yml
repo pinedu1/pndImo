@@ -1,0 +1,105 @@
+info:
+  app:
+    name: '@info.app.name@'
+    version: '@info.app.version@'
+    grailsVersion: '@info.app.grailsVersion@'
+    context:
+      locations: /pinedu/contexts
+    config:
+      locations: /pinedu/config
+      configFileName: appImo.properties
+quartz.autoStartup: true
+environments:
+  production:
+    grails:
+      plugin:
+        console:
+          enabled: false
+          fileStore:
+            remote:
+              enabled: false
+grails:
+  config:
+    locations:
+      - file:/pinedu/config/appImo.properties
+  mime:
+    disable:
+      accept:
+        header:
+          userAgents:
+            - Gecko
+            - WebKit
+            - Presto
+            - Trident
+    types:
+      all: '*/*'
+      atom: application/atom+xml
+      css: text/css
+      csv: text/csv
+      form: application/x-www-form-urlencoded
+      html:
+        - text/html
+        - application/xhtml+xml
+      js: text/javascript
+      json:
+        - application/json
+        - text/json
+      multipartForm: multipart/form-data
+      pdf: application/pdf
+      rss: application/rss+xml
+      text: text/plain
+      hal:
+        - application/hal+json
+        - application/hal+xml
+      xml:
+        - text/xml
+        - application/xml
+  views:
+    gsp:
+      encoding: UTF-8
+      htmlcodec: xml
+      codecs:
+        expression: html
+        scriptlet: html
+        taglib: none
+        staticparts: none
+    default:
+      codec: html
+  cache:
+    ehcache:
+      ehcacheXmlLocation: classpath:ehcache.xml
+      lockTimeout: 200
+  controllers:
+    defaultScope: singleton
+hibernate:
+  show_sql: false
+  cache:
+    queries: false
+    use_second_level_cache: false
+    use_query_cache: false
+dataSource:
+  url: jdbc:postgresql://localhost:5432/pnd
+  driverClassName: org.postgresql.Driver
+  username: pnd
+  password: 'pnd-$P$R%ccG!xo9%JFwet'
+  pooled: true
+  jmxExport: true
+  dbCreate: none #dbCreate: create-drop
+  properties:
+    jmxEnabled: true
+    initialSize: 2
+    maxActive: 5
+    minIdle: 1
+    maxIdle: 4
+    maxWait: 10000
+    maxAge: 10 * 60000
+    timeBetweenEvictionRunsMillis: 5000
+    minEvictableIdleTimeMillis: 60000
+    validationQuery: "SELECT 1;"
+    validationQueryTimeout: 3
+    validationInterval: 15000
+    testOnBorrow: true
+    testWhileIdle: true
+    testOnReturn: false
+    jdbcInterceptor: "ConnectionState;StatementCache(max=50)"
+    defaultTransactionIsolation: java.sql.Connection.TRANSACTION_READ_COMMITTED
