@@ -5,7 +5,7 @@ import groovy.transform.ToString
 
 @EqualsAndHashCode(includes=['id'])
 @ToString(includes=['id'], includeNames=true, includePackage=false)
-class ClienteTenant implements Serializable {
+class Tenant implements Serializable {
     String id
     String nome
     String nomeNormalizado
@@ -19,7 +19,7 @@ class ClienteTenant implements Serializable {
     String email
     String password
     Boolean promocao
-    static hasMany = [ propriedades: ClienteTenantPropriedades ]
+    static hasMany = [ propriedades: TenantPropriedades ]
     static constraints = {
         nome (nullable: false, blank: false, size: 1..70)
         nomeNormalizado (nullable: false, blank: false, size: 1..70)
@@ -45,7 +45,7 @@ class ClienteTenant implements Serializable {
         nomeNormalizado = java.text.Normalizer.normalize( nome, java.text.Normalizer.Form.NFD )?.replaceAll( "[^\\p{ASCII}]", "" )?.replaceAll( /[^A-Za-z0-9]/, ' ' )?.replaceAll( /\s+/, ' ' )?.toUpperCase( );
     }
     static mapping = {
-        table 'cliente_tenant'
+        table 'tenant'
         id generator: 'uuid', sqlType: 'VARCHAR(32)'
         contexto index: 'idxCliTenCtx'
     }

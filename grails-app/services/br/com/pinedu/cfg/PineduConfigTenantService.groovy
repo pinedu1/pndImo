@@ -1,7 +1,7 @@
 package br.com.pinedu.cfg
 
-import br.com.pinedu.ClienteTenant
-import br.com.pinedu.ClienteTenantPropriedades
+import br.com.pinedu.Tenant
+import br.com.pinedu.TenantPropriedades
 import br.com.pinedu.tenant.PineduTenantThreadLocalContext
 import grails.core.GrailsApplication
 import grails.gorm.transactions.Transactional
@@ -75,18 +75,18 @@ class PineduConfigTenantService {
         formattedContent.append("grails.plugin.databasemigration.updateOnStartFileName=changelog.groovy\n")
         formattedContent.append("grails.plugin.databasemigration.changelogFileName=changelog.groovy\n")
         formattedContent.append("# DataBases\n\n")
-        ClienteTenant.list().each{ClienteTenant clienteTenantInstance->
-            String ctx = clienteTenantInstance.contexto.toUpperCase()
-            formattedContent.append("# Cliente: ${clienteTenantInstance.nome}\n")
+        Tenant.list().each{ Tenant tenantInstance->
+            String ctx = tenantInstance.contexto.toUpperCase()
+            formattedContent.append("# Cliente: ${tenantInstance.nome}\n")
             Properties properties = new Properties()
-            properties.setProperty("${ctx}.contexto", clienteTenantInstance.contexto)
-            properties.setProperty("${ctx}.nome", clienteTenantInstance.nome)
-            properties.setProperty("${ctx}.telefone", clienteTenantInstance.telefone)
-            properties.setProperty("${ctx}.email", clienteTenantInstance.email)
-            properties.setProperty("${ctx}.ativo", "${Boolean.TRUE.equals(clienteTenantInstance.ativo)}")
-            properties.setProperty("${ctx}.promocao", "${Boolean.TRUE.equals(clienteTenantInstance.promocao)}")
+            properties.setProperty("${ctx}.contexto", tenantInstance.contexto)
+            properties.setProperty("${ctx}.nome", tenantInstance.nome)
+            properties.setProperty("${ctx}.telefone", tenantInstance.telefone)
+            properties.setProperty("${ctx}.email", tenantInstance.email)
+            properties.setProperty("${ctx}.ativo", "${Boolean.TRUE.equals(tenantInstance.ativo)}")
+            properties.setProperty("${ctx}.promocao", "${Boolean.TRUE.equals(tenantInstance.promocao)}")
 
-            ClienteTenantPropriedades.mapFromClienteTenant(clienteTenantInstance).each{item->
+            TenantPropriedades.mapFromClienteTenant(tenantInstance).each{ item->
                 if ( propertiesMaster.contains(item.key as String) ) {
                     properties.setProperty("${ctx}.${item.key}", "${item.value}")
                 } else {
@@ -105,15 +105,15 @@ class PineduConfigTenantService {
     @Transactional
     void inclueDummyTenants() {
         ["joao", "pedro", "antonio", "jose", "felipe", "alberto"].each {
-            ClienteTenant clienteTenantInstance = new ClienteTenant(nome: it, contexto: it, cpf: "14026400808", ativo: true, sistema: false, telefone: "11994662171", email: "${it}@local.net", password: "senhasenhasenha")
-            clienteTenantInstance.save(flush: true, failOnError: true)
-            inclueDummyTenantContext(clienteTenantInstance)
+            Tenant tenantInstance = new Tenant(nome: it, contexto: it, cpf: "14026400808", ativo: true, sistema: false, telefone: "11994662171", email: "${it}@local.net", password: "senhasenhasenha")
+            tenantInstance.save(flush: true, failOnError: true)
+            inclueDummyTenantContext(tenantInstance)
         }
     }
     @Transactional
-    void inclueDummyTenantContext(ClienteTenant clienteTenantInstance) {
+    void inclueDummyTenantContext(Tenant tenantInstance) {
         String domainPosName = 'local.net'
-        String contexto = clienteTenantInstance.contexto
+        String contexto = tenantInstance.contexto
         Map app = [
                 contexto: contexto
                 , serverBaseUrl: "http://${contexto}.${domainPosName}"
@@ -154,21 +154,21 @@ class PineduConfigTenantService {
                 //, 'properties.defaultTransactionIsolation': 'java.sql.Connection.TRANSACTION_READ_COMMITTED'
         ]
         app.each {key, value->
-            ClienteTenantPropriedades clienteTenantPropriedadesInstance = new ClienteTenantPropriedades(chave: key, valor: value, cliente: clienteTenantInstance)
-            if ( clienteTenantInstance.propriedades == null ) {
-                clienteTenantInstance.propriedades = new HashSet<ClienteTenantPropriedades>()
+            TenantPropriedades tenantPropertyInstance = new TenantPropriedades(chave: key, valor: value, cliente: tenantInstance)
+            if ( tenantInstance.propriedades == null ) {
+                tenantInstance.propriedades = new HashSet<TenantPropriedades>()
             }
-            clienteTenantInstance.propriedades.add( clienteTenantPropriedadesInstance )
-            clienteTenantPropriedadesInstance.save()
+            tenantInstance.propriedades.add( tenantPropertyInstance )
+            tenantPropertyInstance.save()
         }
         dataBase.each {key, value->
-            ClienteTenantPropriedades clienteTenantPropriedadesInstance = new ClienteTenantPropriedades(chave: key, valor: value, cliente: clienteTenantInstance)
-            if ( clienteTenantInstance.propriedades == null ) {
-                clienteTenantInstance.propriedades = new HashSet<ClienteTenantPropriedades>()
+            TenantPropriedades tenantPropertyInstance = new TenantPropriedades(chave: key, valor: value, cliente: tenantInstance)
+            if ( tenantInstance.propriedades == null ) {
+                tenantInstance.propriedades = new HashSet<TenantPropriedades>()
             }
-            clienteTenantInstance.propriedades.add( clienteTenantPropriedadesInstance )
-            clienteTenantPropriedadesInstance.save()
+            tenantInstance.propriedades.add( tenantPropertyInstance )
+            tenantPropertyInstance.save()
         }
-        clienteTenantInstance.save(failOnError: true, flush: true)
+        tenantInstance.save(failOnError: true, flush: true)
     }
 }

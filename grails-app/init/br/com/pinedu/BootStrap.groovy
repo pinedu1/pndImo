@@ -3,19 +3,12 @@ package br.com.pinedu
 import br.com.pinedu.cfg.PineduConfigTenantService
 import br.com.pinedu.tenant.PineduTenantThreadLocalContext
 import grails.converters.JSON
-import grails.core.GrailsApplication
-import org.grails.plugins.databasemigration.command.DbmGenerateGormChangelogCommand
-import org.springframework.context.ApplicationContext
-import org.grails.plugins.databasemigration.DatabaseMigrationGrailsPlugin
 import java.text.SimpleDateFormat
 
 class BootStrap {
     private static final Boolean DEBUG = Boolean.TRUE
     PineduConfigTenantService pineduConfigTenantService
     PineduTenantService pineduTenantService
-    ApplicationContext applicationContext
-    GrailsApplication grailsApplication
-    DatabaseMigrationGrailsPlugin databaseMigrationGrailsPlugin
     def init = { servletContext ->
         //return
         if ( false && pineduConfigTenantService.isMultiTenancy() ) {
@@ -28,7 +21,7 @@ class BootStrap {
     def destroy = {
     }
     private void inicializaMultiTenant() {
-        if ( Boolean.TRUE.equals(DEBUG) && ClienteTenant.count() <= 0 ) {
+        if ( Boolean.TRUE.equals(DEBUG) && Tenant.count() <= 0 ) {
             pineduConfigTenantService.inclueDummyTenants()
         }
         pineduConfigTenantService.atualizaConfigTenants()

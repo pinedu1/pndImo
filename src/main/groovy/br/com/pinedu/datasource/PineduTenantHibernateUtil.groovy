@@ -1,18 +1,15 @@
 package br.com.pinedu.datasource
 
-import br.com.pinedu.ClienteTenant
-import br.com.pinedu.ClienteTenantPropriedades
+
+import br.com.pinedu.TenantPropriedades
 import grails.util.Holders
 import org.grails.datastore.gorm.jdbc.connections.DataSourceConnectionSource
 import org.grails.datastore.gorm.jdbc.connections.DataSourceSettings
 import org.grails.orm.hibernate.HibernateDatastore
 import org.hibernate.Session
-import org.springframework.orm.hibernate5.SessionHolder
-import org.springframework.transaction.support.TransactionSynchronizationManager
 
 import javax.sql.DataSource
 import org.hibernate.SessionFactory
-import org.hibernate.Transaction
 
 class PineduTenantHibernateUtil {
 	private HibernateDatastore hibernateDatastore
@@ -52,7 +49,7 @@ class PineduTenantHibernateUtil {
 		org.grails.datastore.mapping.multitenancy.web.SubDomainTenantResolver y
 		//def transaction = session.beginTransaction()
 		org.grails.orm.hibernate.GrailsHibernateTemplate g
-		ClienteTenantPropriedades.all()
+		TenantPropriedades.all()
 		try {
 			exec()
 			//transaction.commit()  // Confirmar a transação
