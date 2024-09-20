@@ -19,6 +19,9 @@ class PineduTenantFilter implements Filter {
 	@Override
 	void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 		String tenantId = PineduTenantResolver.resolveTenantId( (HttpServletRequest) servletRequest )
+		if ( ( ''.equals( tenantId ) || tenantId == null ) && 'localhost'.equals(servletRequest.getServerName() ) ) {
+			tenantId = 'DEFAULT'
+		}
 		if (tenantId) {
 			// Definir o locatário no contexto atual (usando um ThreadLocal ou outro mecanismo)
 			PineduTenantThreadLocalContext.set(tenantId)

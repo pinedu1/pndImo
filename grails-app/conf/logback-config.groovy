@@ -79,6 +79,8 @@ if (Environment.isDevelopmentMode() && TARGET_LOG_DIRECTORY != null) {
 
 //logger for default package
 logger('br.com.pinedu', INFO, ['STDOUT','ROLLING_FILE'], false)
+logger('org.grails.plugins.databasemigration', ERROR, ['STDOUT','ROLLING_FILE'], false)
+logger('org.liquibase.liquibase', ERROR, ['STDOUT','ROLLING_FILE'], false)
 
 //loggers for grails related packages. Level can be turned up to debug.
 

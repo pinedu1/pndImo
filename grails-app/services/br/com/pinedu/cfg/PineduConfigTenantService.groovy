@@ -1,7 +1,6 @@
 package br.com.pinedu.cfg
 
-import br.com.pinedu.Tenant
-import br.com.pinedu.TenantPropriedades
+
 import br.com.pinedu.tenant.PineduTenantThreadLocalContext
 import grails.core.GrailsApplication
 import grails.gorm.transactions.Transactional
@@ -104,6 +103,8 @@ class PineduConfigTenantService {
     }
     @Transactional
     void inclueDummyTenants() {
+        //["joao", "pedro", "antonio", "jose", "felipe", "alberto"].each {
+        //["adriano", "alexandre", "alvaro", "andre", "arthur", "augusto", "benicio", "bruno", "caio", "carlos", "daniel", "diego", "edson", "eduardo", "emerson", "ezequiel", "felipe", "fernando", "gabriel", "gustavo", "hugo", "igor", "joaquim", "jorge", "leandro", "leonardo", "lucas", "marco", "matheus", "murilo", "nathan", "otavio", "paulo", "pedro", "rafael", "ramiro", "raoni", "renato", "robson", "samuel", "sidney", "silvio", "thiago", "tiago", "vinicius", "vitor", "wesley"].each{
         ["joao", "pedro", "antonio", "jose", "felipe", "alberto"].each {
             Tenant tenantInstance = new Tenant(nome: it, contexto: it, cpf: "14026400808", ativo: true, sistema: false, telefone: "11994662171", email: "${it}@local.net", password: "senhasenhasenha")
             tenantInstance.save(flush: true, failOnError: true)

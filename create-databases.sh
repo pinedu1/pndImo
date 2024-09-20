@@ -5,6 +5,7 @@ HTTPD_PATH="/etc/$NOME_HTTP"
 HTTPD_LOG_PATH="/var/log/$NOME_HTTP"
 HTTPD_ROOT_PATH="/var/www/html"
 databases=( "pnd" "joao" "pedro" "antonio" "jose" "felipe" "alberto" )
+#databases=( "pnd" "adriano" "alexandre" "alvaro" "andre" "arthur" "augusto" "benicio" "bruno" "caio" "carlos" "daniel" "diego" "edson" "eduardo" "emerson" "ezequiel" "felipe" "fernando" "gabriel" "gustavo" "hugo" "igor" "joaquim" "jorge" "leandro" "leonardo" "lucas" "marco" "matheus" "murilo" "nathan" "otavio" "paulo" "pedro" "rafael" "ramiro" "raoni" "renato" "robson" "samuel" "sidney" "silvio" "thiago" "tiago" "vinicius" "vitor" "wesley")
 #psql --username=pinedu --dbname=template1 -h localhost -c "SELECT pid, usename, application_name, client_addr, client_hostname, client_port, query_start FROM pg_stat_activity;"
 
 
@@ -131,7 +132,7 @@ ZEOF2
 cria_role() {
 	USERNAME=$1
 	PASSWORD=$2
-	psql --username=pinedu --dbname=template1 -h localhost -c "CREATE ROLE $USERNAME WITH LOGIN PASSWORD '$PASSWORD';"
+	psql --username=pinedu --dbname=template1 -h localhost -c "CREATE ROLE $USERNAME WITH LOGIN PASSWORD '$PASSWORD'; GRANT pg_read_server_files TO $USERNAME;"
 }
 cria_database() {
 	DATABASE=$1

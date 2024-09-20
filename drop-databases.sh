@@ -2,7 +2,7 @@
 
 
 databases=( "pnd" "joao" "pedro" "antonio" "jose" "felipe" "alberto" )
-
+#databases=( "pnd" "adriano" "alexandre" "alvaro" "andre" "arthur" "augusto" "benicio" "bruno" "caio" "carlos" "daniel" "diego" "edson" "eduardo" "emerson" "ezequiel" "felipe" "fernando" "gabriel" "gustavo" "hugo" "igor" "joaquim" "jorge" "leandro" "leonardo" "lucas" "marco" "matheus" "murilo" "nathan" "otavio" "paulo" "pedro" "rafael" "ramiro" "raoni" "renato" "robson" "samuel" "sidney" "silvio" "thiago" "tiago" "vinicius" "vitor" "wesley")
 for db in "${databases[@]}"; do
     psql --username=pinedu --dbname=template1 -h localhost -c "DROP DATABASE IF EXISTS $db;"
     psql --username=pinedu --dbname=template1 -h localhost -c "DROP ROLE IF EXISTS $db;"

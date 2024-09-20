@@ -1,45 +1,36 @@
-2024-09-19 16:05:48,583  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:06:10,199 ERROR [org.springframework.boot.SpringApplication] Application run failed
-liquibase.exception.LiquibaseException: java.util.NoSuchElementException: Cannot access first() element from an empty Iterable
-	at liquibase.Liquibase.runInScope(Liquibase.java:2436)
-	at liquibase.Liquibase.update(Liquibase.java:237)
-	at liquibase.Liquibase.update(Liquibase.java:222)
-	at liquibase.integration.spring.SpringLiquibase.performUpdate(SpringLiquibase.java:328)
-	at org.grails.plugins.databasemigration.liquibase.GrailsLiquibase.performUpdate(GrailsLiquibase.groovy:81)
-	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:283)
-	at org.springframework.beans.factory.InitializingBean$afterPropertiesSet.call(Unknown Source)
+2024-09-20 10:16:43,068  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
+2024-09-20 10:17:57,502 ERROR [org.hibernate.engine.jdbc.spi.SqlExceptionHelper] ERRO: relação "tenant" não existe
+  Posição: 44
+2024-09-20 10:17:57,527 ERROR [org.springframework.boot.SpringApplication] Application run failed
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+	at org.springframework.orm.hibernate5.SessionFactoryUtils.convertHibernateAccessException(SessionFactoryUtils.java:195)
+	at org.grails.orm.hibernate.GrailsHibernateTemplate.doExecute(GrailsHibernateTemplate.java:305)
+	at org.grails.orm.hibernate.GrailsHibernateTemplate.execute(GrailsHibernateTemplate.java:241)
+	at org.grails.orm.hibernate.GrailsHibernateTemplate.execute(GrailsHibernateTemplate.java:120)
+	at org.grails.orm.hibernate.AbstractHibernateGormStaticApi.count(AbstractHibernateGormStaticApi.groovy:180)
+	at org.grails.datastore.gorm.GormEntity$Trait$Helper.count(GormEntity.groovy:649)
+	at org.grails.datastore.gorm.GormEntity$Trait$Helper$count.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+	at br.com.pinedu.cfg.Tenant.count(Tenant.groovy)
+	at br.com.pinedu.cfg.Tenant$count.call(Unknown Source)
 	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
 	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
 	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:130)
-	at org.grails.plugins.databasemigration.DatabaseMigrationGrailsPlugin$_doWithApplicationContext_closure2$_closure5.doCall(DatabaseMigrationGrailsPlugin.groovy:85)
+	at br.com.pinedu.BootStrap.inicializaMultiTenant(BootStrap.groovy:25)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
 	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
-	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
-	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1030)
-	at groovy.lang.Closure.call(Closure.java:427)
-	at groovy.lang.Closure.call(Closure.java:416)
-	at grails.gorm.transactions.GrailsTransactionTemplate$2.doInTransaction(GrailsTransactionTemplate.groovy:94)
-	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:140)
-	at grails.gorm.transactions.GrailsTransactionTemplate.execute(GrailsTransactionTemplate.groovy:91)
-	at grails.gorm.transactions.GrailsTransactionTemplate$execute.call(Unknown Source)
-	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
-	at org.grails.plugins.databasemigration.DatabaseMigrationTransactionManager.withTransaction(DatabaseMigrationTransactionManager.groovy:123)
-	at org.grails.plugins.databasemigration.DatabaseMigrationTransactionManager$withTransaction$0.callCurrent(Unknown Source)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:362)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.callCurrent(PogoMetaClassSite.java:61)
 	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:51)
 	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:171)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:194)
-	at org.grails.plugins.databasemigration.DatabaseMigrationTransactionManager.withTransaction(DatabaseMigrationTransactionManager.groovy:47)
-	at org.grails.plugins.databasemigration.DatabaseMigrationTransactionManager$withTransaction.call(Unknown Source)
-	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
-	at org.grails.plugins.databasemigration.DatabaseMigrationGrailsPlugin$_doWithApplicationContext_closure2.doCall(DatabaseMigrationGrailsPlugin.groovy:74)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:176)
+	at br.com.pinedu.BootStrap$_closure1.doCall(BootStrap.groovy:16)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -48,21 +39,17 @@ liquibase.exception.LiquibaseException: java.util.NoSuchElementException: Cannot
 	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
 	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
 	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1030)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1135)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1030)
 	at groovy.lang.Closure.call(Closure.java:427)
-	at groovy.lang.Closure.call(Closure.java:416)
-	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2364)
-	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2349)
-	at org.codehaus.groovy.runtime.DefaultGroovyMethods.each(DefaultGroovyMethods.java:2402)
-	at org.codehaus.groovy.runtime.dgm$204.invoke(Unknown Source)
-	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:242)
-	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:51)
-	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
-	at org.grails.plugins.databasemigration.DatabaseMigrationGrailsPlugin.doWithApplicationContext(DatabaseMigrationGrailsPlugin.groovy:58)
-	at org.grails.plugins.DefaultGrailsPlugin.doWithApplicationContext(DefaultGrailsPlugin.java:507)
-	at org.grails.plugins.AbstractGrailsPluginManager.doPostProcessing(AbstractGrailsPluginManager.java:223)
-	at grails.boot.config.GrailsApplicationPostProcessor.onApplicationEvent(GrailsApplicationPostProcessor.groovy:266)
+	at groovy.lang.Closure.call(Closure.java:406)
+	at grails.util.Environment.evaluateEnvironmentSpecificBlock(Environment.groovy:585)
+	at grails.util.Environment.executeForEnvironment(Environment.groovy:578)
+	at grails.util.Environment.executeForCurrentEnvironment(Environment.groovy:554)
+	at org.grails.web.servlet.boostrap.DefaultGrailsBootstrapClass.callInit(DefaultGrailsBootstrapClass.java:74)
+	at org.grails.web.servlet.context.GrailsConfigUtils.executeGrailsBootstraps(GrailsConfigUtils.java:83)
+	at org.grails.plugins.web.servlet.context.BootStrapClassRunner.onStartup(BootStrapClassRunner.groovy:56)
+	at grails.boot.config.GrailsApplicationPostProcessor.onApplicationEvent(GrailsApplicationPostProcessor.groovy:276)
 	at grails.boot.config.GrailsApplicationPostProcessor.onApplicationEvent(GrailsApplicationPostProcessor.groovy)
 	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:178)
 	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:171)
@@ -84,65 +71,60 @@ liquibase.exception.LiquibaseException: java.util.NoSuchElementException: Cannot
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
-Caused by: java.util.NoSuchElementException: Cannot access first() element from an empty Iterable
-	at org.codehaus.groovy.runtime.DefaultGroovyMethods.first(DefaultGroovyMethods.java:10451)
-	at org.codehaus.groovy.runtime.dgm$289.invoke(Unknown Source)
-	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoMetaMethodSiteNoUnwrapNoCoerce.invoke(PojoMetaMethodSite.java:242)
-	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:51)
-	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
-	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:130)
-	at org.grails.plugins.databasemigration.liquibase.GroovyChangeLogParser.parseToNode(GroovyChangeLogParser.groovy:47)
-	at liquibase.parser.core.xml.AbstractChangeLogParser.parse(AbstractChangeLogParser.java:15)
-	at liquibase.Liquibase.getDatabaseChangeLog(Liquibase.java:408)
-	at liquibase.Liquibase.getDatabaseChangeLog(Liquibase.java:393)
-	at liquibase.Liquibase.lambda$update$1(Liquibase.java:249)
-	at liquibase.Scope.lambda$child$0(Scope.java:180)
-	at liquibase.Scope.child(Scope.java:189)
-	at liquibase.Scope.child(Scope.java:179)
-	at liquibase.Scope.child(Scope.java:158)
-	at liquibase.Liquibase.runInScope(Liquibase.java:2431)
-	... 82 common frames omitted
-2024-09-19 16:07:13,230  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:16:21,171  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:16:59,572 ERROR [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-A component required a bean named 'transactionManager_dataSource_JOAO' that could not be found.
-
-
-Action:
-
-Consider defining a bean named 'transactionManager_dataSource_JOAO' in your configuration.
-
-2024-09-19 16:20:45,411  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:22:00,057  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:22:05,084 ERROR [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-A component required a bean named 'transactionManager_dataSource_JOAO' that could not be found.
-
-
-Action:
-
-Consider defining a bean named 'transactionManager_dataSource_JOAO' in your configuration.
-
-2024-09-19 16:26:04,752  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:28:25,859  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:30:32,338  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:32:29,476  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:34:02,873  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:46:38,434  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:46:44,629  INFO [br.com.pinedu.Application] Started Application in 6.614 seconds (JVM running for 8.096)
-2024-09-19 16:52:54,224  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-19 16:53:00,121  INFO [br.com.pinedu.Application] Started Application in 6.312 seconds (JVM running for 7.845)
+Caused by: org.hibernate.exception.SQLGrammarException: could not extract ResultSet
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:103)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:37)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:113)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:99)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.extract(ResultSetReturnImpl.java:67)
+	at org.hibernate.loader.Loader.getResultSet(Loader.java:2322)
+	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2075)
+	at org.hibernate.loader.Loader.executeQueryStatement(Loader.java:2037)
+	at org.hibernate.loader.Loader.doQuery(Loader.java:956)
+	at org.hibernate.loader.Loader.doQueryAndInitializeNonLazyCollections(Loader.java:357)
+	at org.hibernate.loader.Loader.doList(Loader.java:2868)
+	at org.hibernate.loader.Loader.doList(Loader.java:2850)
+	at org.hibernate.loader.Loader.listIgnoreQueryCache(Loader.java:2682)
+	at org.hibernate.loader.Loader.list(Loader.java:2677)
+	at org.hibernate.loader.hql.QueryLoader.list(QueryLoader.java:540)
+	at org.hibernate.hql.internal.ast.QueryTranslatorImpl.list(QueryTranslatorImpl.java:400)
+	at org.hibernate.engine.query.spi.HQLQueryPlan.performList(HQLQueryPlan.java:218)
+	at org.hibernate.internal.SessionImpl.list(SessionImpl.java:1459)
+	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1649)
+	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1617)
+	at org.hibernate.query.criteria.internal.compile.CriteriaQueryTypeQueryAdapter.list(CriteriaQueryTypeQueryAdapter.java:96)
+	at org.grails.orm.hibernate.query.HibernateHqlQuery.executeQuery(HibernateHqlQuery.java:41)
+	at org.grails.datastore.mapping.query.Query.doList(Query.java:589)
+	at org.grails.datastore.mapping.query.Query.singleResult(Query.java:577)
+	at org.grails.orm.hibernate.AbstractHibernateGormStaticApi$_count_closure4.doCall(AbstractHibernateGormStaticApi.groovy:193)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:107)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:274)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1030)
+	at groovy.lang.Closure.call(Closure.java:427)
+	at org.codehaus.groovy.runtime.ConvertedClosure.invokeCustom(ConvertedClosure.java:50)
+	at org.codehaus.groovy.runtime.ConversionHandler.invoke(ConversionHandler.java:112)
+	at jdk.proxy2/jdk.proxy2.$Proxy185.doInHibernate(Unknown Source)
+	at org.grails.orm.hibernate.GrailsHibernateTemplate.doExecute(GrailsHibernateTemplate.java:297)
+	... 66 common frames omitted
+Caused by: org.postgresql.util.PSQLException: ERRO: relação "tenant" não existe
+  Posição: 44
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2675)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2365)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:355)
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:490)
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:408)
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:167)
+	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:119)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.tomcat.jdbc.pool.StatementFacade$StatementProxy.invoke(StatementFacade.java:118)
+	at jdk.proxy2/jdk.proxy2.$Proxy186.executeQuery(Unknown Source)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.extract(ResultSetReturnImpl.java:57)
+	... 99 common frames omitted

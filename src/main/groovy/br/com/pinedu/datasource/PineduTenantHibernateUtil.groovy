@@ -1,7 +1,7 @@
 package br.com.pinedu.datasource
 
 
-import br.com.pinedu.TenantPropriedades
+import br.com.pinedu.cfg.TenantPropriedades
 import grails.util.Holders
 import org.grails.datastore.gorm.jdbc.connections.DataSourceConnectionSource
 import org.grails.datastore.gorm.jdbc.connections.DataSourceSettings

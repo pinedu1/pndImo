@@ -1,7 +1,7 @@
 package br.com.pinedu.tenant
 
-import br.com.pinedu.Tenant
-import br.com.pinedu.TenantPropriedades
+import br.com.pinedu.cfg.Tenant
+import br.com.pinedu.cfg.TenantPropriedades
 import grails.events.annotation.gorm.Listener
 import groovy.util.logging.Slf4j
 import org.grails.datastore.mapping.engine.event.PostInsertEvent
