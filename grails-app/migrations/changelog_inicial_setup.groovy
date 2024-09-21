@@ -804,6 +804,9 @@ databaseChangeLog = {
 			column(name: "loja_id", type: "BIGINT") {
 				constraints(nullable: "false")
 			}
+			column(name: "grupo_id", type: "BIGINT") {
+				constraints(nullable: "false")
+			}
 		}
 		createTable(tableName: "equipe_corretor") {
 			column(name: "corretor_id", type: "BIGINT") {
@@ -2620,6 +2623,12 @@ databaseChangeLog = {
 			}
 			column(name: "conteudo", type: "CLOB") {
 				constraints(nullable: "false")
+			}
+			column(name: "sistema", type: "BOOLEAN") {
+				constraints(nullable: "true")
+			}
+			column(name: "ativo", type: "BOOLEAN") {
+				constraints(nullable: "true")
 			}
 		}
 		createTable(tableName: "tipo_dependencia") {

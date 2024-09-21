@@ -84,7 +84,7 @@ dataSource:
   password: 'pnd-$P$R%ccG!xo9%JFwet'
   pooled: true
   jmxExport: true
-  dbCreate: none  #update #dbCreate: create-drop
+  dbCreate: update  #update #dbCreate: create-drop
   properties:
     jmxEnabled: true
     initialSize: 2
