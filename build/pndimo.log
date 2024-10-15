@@ -1,2 +1,2 @@
-2024-09-21 16:53:15,448  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-09-21 16:54:29,007  INFO [br.com.pinedu.Application] Started Application in 73.997 seconds (JVM running for 75.512)
+2024-10-12 16:44:21,830  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
+2024-10-12 16:45:35,660  INFO [br.com.pinedu.Application] Started Application in 74.246 seconds (JVM running for 75.681)

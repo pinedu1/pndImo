@@ -71,12 +71,12 @@ databaseChangeLog = {
 		grailsChange {
 			change {
 				sql.execute("""
-				COPY regra (id,version,sistema,descricao,authority) FROM '/pinedu/modelo/regra.csv' with csv header NULL 'NULL';
+				COPY regra (id,version,authority,descricao,sistema) FROM '/pinedu/modelo/regra.csv' with csv header NULL 'NULL';
 				COPY usuario (id,version,email_port,start_ssl,sistema,ativar_email,corretor_id,password_expired,account_expired,ultimo_login,email_password,carteira_id,start_tls,username,email_server,email_username,account_locked,password,loja_id,ultimo_bloqueio,pessoa_id,email_ssl,enabled,email_remetente,ultimo_login_ip) FROM '/pinedu/modelo/usuario.csv' with csv header NULL 'NULL';
 				COPY requestmap (id,version,config_attribute,url) FROM '/pinedu/modelo/requestmap.csv' with csv header NULL 'NULL';
 				COPY usuario_regra (user_id,role_id) FROM '/pinedu/modelo/usuario_regra.csv' with csv header NULL 'NULL';
-				COPY grupo (id,version,sistema,descricao,nome) FROM '/pinedu/modelo/grupo.csv' with csv header NULL 'NULL';
-				COPY grupo_regra (role_id,grupo_id) FROM '/pinedu/modelo/grupo_regra.csv' with csv header NULL 'NULL';
+				COPY grupo (id,version,sistema,descricao,nome,aplicacao_id,ativo) FROM '/pinedu/modelo/grupo.csv' with csv header NULL 'NULL';
+				COPY grupo_regra (grupo_id,role_id) FROM '/pinedu/modelo/grupo_regra.csv' with csv header NULL 'NULL';
 				COPY menu (id,version,sistema,icone,mneumonic,nome,selected,dica,aplicacao_id,pai_id,posicao,tipo,administrativo,alinhamento,\"action\",enabled) FROM '/pinedu/modelo/menu.csv' with csv header NULL 'NULL';
 				COPY grupo_menu (grupo_id,menu_id) FROM '/pinedu/modelo/grupo_menu.csv' with csv header NULL 'NULL';
 				COPY usuario_grupo (user_id,grupo_id) FROM '/pinedu/modelo/usuario_grupo.csv' with csv header NULL 'NULL';

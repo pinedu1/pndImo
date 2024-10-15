@@ -957,6 +957,8 @@ databaseChangeLog = {
 			column(name: "nome", type: "VARCHAR(70)") {
 				constraints(nullable: "false")
 			}
+			column(name: "aplicacao_id", type: "BIGINT")
+			column(name: "ativo", type: "BOOLEAN")
 		}
 		createTable(tableName: "grupo_menu") {
 			column(name: "menu_id", type: "BIGINT") {
@@ -2927,11 +2929,11 @@ databaseChangeLog = {
 			column(name: "user_id", type: "BIGINT") {
 				constraints(nullable: "false")
 			}
-			column(name: "preferencias_object", type: "VARCHAR(255)")
-			column(name: "preferencias_idx", type: "VARCHAR(255)")
-			column(name: "preferencias_elt", type: "VARCHAR(255)") {
+			column(name: "preferencias_elt", type: "varchar(255)") {
 				constraints(nullable: "false")
 			}
+			column(name: "preferencias_object", type: "varchar(255)")
+			column(name: "preferencias_idx", type: "varchar(255)")
 		}
 		createTable(tableName: "usuario_regra") {
 			column(name: "user_id", type: "BIGINT") {
