@@ -312,11 +312,14 @@ databaseChangeLog = {
 		createIndex(indexName: "idxEquiAtiv", tableName: "equipe") {
 			column(name: "ativo")
 		}
+		createIndex(indexName: "idxEquiNome", tableName: "equipe") {
+			column(name: "nome")
+		}
+		createIndex(indexName: "idxEquiNomeNorm", tableName: "equipe") {
+			column(name: "nome_normalizado")
+		}
 		createIndex(indexName: "idxEquiCart", tableName: "equipe") {
 			column(name: "carteira_id")
-		}
-		createIndex(indexName: "idxEquiGetPrin", tableName: "equipe_gerente") {
-			column(name: "principal")
 		}
 		createIndex(indexName: "idxEquiLoj", tableName: "equipe") {
 			column(name: "loja_id")
@@ -326,6 +329,9 @@ databaseChangeLog = {
 		}
 		createIndex(indexName: "idxEquiSis", tableName: "equipe") {
 			column(name: "sistema")
+		}
+		createIndex(indexName: "idxEquiGetPrin", tableName: "equipe_gerente") {
+			column(name: "principal")
 		}
 		createIndex(indexName: "idxEvtAgen", tableName: "evento") {
 			column(name: "agenda_id")

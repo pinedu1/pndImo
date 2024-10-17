@@ -785,28 +785,23 @@ databaseChangeLog = {
 			column(name: "sigla", type: "VARCHAR(10)") {
 				constraints(nullable: "false")
 			}
-			column(name: "sistema", type: "BOOLEAN")
 			column(name: "date_created", type: "timestamp") {
 				constraints(nullable: "false")
 			}
 			column(name: "last_updated", type: "timestamp") {
 				constraints(nullable: "false")
 			}
-			column(name: "descricao", type: "CLOB")
-			column(name: "nome_usu_criador", type: "VARCHAR(255)")
 			column(name: "nome", type: "VARCHAR(50)") {
 				constraints(nullable: "false")
 			}
+			column(name: "descricao", type: "CLOB")
+			column(name: "nome_usu_criador", type: "VARCHAR(255)")
+			column(name: "sistema", type: "BOOLEAN")
+			column(name: "nome_normalizado", type: "VARCHAR(50)")
 			column(name: "ativo", type: "BOOLEAN")
-			column(name: "carteira_id", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-			column(name: "loja_id", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-			column(name: "grupo_id", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
+			column(name: "carteira_id", type: "BIGINT")
+			column(name: "loja_id", type: "BIGINT")
+			column(name: "grupo_id", type: "BIGINT")
 		}
 		createTable(tableName: "equipe_corretor") {
 			column(name: "corretor_id", type: "BIGINT") {
