@@ -2,7 +2,7 @@ databaseChangeLog = {
 	changeSet(author: "eduardo", id: "DISTANCIA_GEOGRAFICA") {
 		change {
 			sql.execute("""
-CREATE OR REPLACE FUNCTION distancia_geografica(latitudeParameter NUMERIC,longitudeParameter NUMERIC) RETURNS NUMERIC AS \$\$
+CREATE OR REPLACE FUNCTION distancia_geografica(latitudeParameter NUMERIC,longitudeParameter NUMERIC,latitude NUMERIC,longitude NUMERIC) RETURNS NUMERIC AS \$\$
 BEGIN
     RETURN (
         6371 * acos(
@@ -21,7 +21,7 @@ END;
 	changeSet(author: "eduardo", id: "DISTANCIA_GEOGRAFICA_MILHA") {
 		change {
 			sql.execute("""
-CREATE OR REPLACE FUNCTION distancia_geografica_milha(latitudeParameter NUMERIC,longitudeParameter NUMERIC) RETURNS NUMERIC AS \$\$
+CREATE OR REPLACE FUNCTION distancia_geografica(latitudeParameter NUMERIC,longitudeParameter NUMERIC,latitude NUMERIC,longitude NUMERIC) RETURNS NUMERIC AS \$\$
 BEGIN
     RETURN (
         3959 * acos(
