@@ -15,6 +15,41 @@ BEGIN
     );
 END;
 \$\$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION distancia_geografica(double precision, double precision, double precision, double precision) RETURNS numeric AS
+\$BODY\$
+    BEGIN
+        RETURN distancia_geografica(\$1::numeric, \$2::numeric, \$3::numeric, \$4::numeric);
+    END;
+\$BODY\$
+\$\$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION distancia_geografica(numeric, numeric, real, real) RETURNS numeric AS
+\$BODY\$
+    BEGIN
+        RETURN distancia_geografica(\$1::numeric, \$2::numeric, \$3::numeric, \$4::numeric);
+    END;
+\$BODY\$
+\$\$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION distancia_geografica(numeric, numeric, double precision, double precision) RETURNS numeric AS
+\$BODY\$
+    BEGIN
+        RETURN distancia_geografica(\$1::numeric, \$2::numeric, \$3::numeric, \$4::numeric);
+    END;
+\$BODY\$
+\$\$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION distancia_geografica(numeric, numeric, real, double precision) RETURNS numeric AS
+\$BODY\$
+    BEGIN
+        RETURN distancia_geografica(\$1::numeric, \$2::numeric, \$3::numeric, \$4::numeric);
+    END;
+\$BODY\$
+\$\$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION distancia_geografica(numeric, numeric, double precision, real) RETURNS numeric AS
+\$BODY\$
+    BEGIN
+        RETURN distancia_geografica(\$1::numeric, \$2::numeric, \$3::numeric, \$4::numeric);
+    END;
+\$BODY\$
+\$\$ LANGUAGE plpgsql;
 			""")
 		}
 	}
