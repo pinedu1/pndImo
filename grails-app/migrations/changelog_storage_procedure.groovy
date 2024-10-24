@@ -41,11 +41,12 @@ BEGIN
     RETURN distancia_geografica(\$1::numeric, \$2::numeric, \$3::numeric, \$4::numeric);
 END;
 \$\$ LANGUAGE plpgsql;
-CREATE OR REPLACE FUNCTION distancia_geografica(double precision, double precision, real, real) RETURNS numeric AS \$\$
+CREATE OR REPLACE FUNCTION distancia_geografica(latitudeParameter double precision, longitudeParameter double precision, latitude real, longitude real) RETURNS numeric AS \$\$
 BEGIN
-    RETURN distancia_geografica(\$1::numeric, \$2::numeric, \$3::numeric, \$4::numeric);
+    RETURN distancia_geografica(latitudeParameter::numeric, longitudeParameter::numeric, latitude::numeric, longitude::numeric);
 END;
 \$\$ LANGUAGE plpgsql;
+
 """)
 			}
 		}
