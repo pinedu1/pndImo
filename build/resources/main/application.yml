@@ -2,7 +2,7 @@ info:
   app:
     name: 'pndimo'
     version: '0.1'
-    grailsVersion: '6.2.0'
+    grailsVersion: '6.2.1'
     context:
       locations: /pinedu/contexts
     config:

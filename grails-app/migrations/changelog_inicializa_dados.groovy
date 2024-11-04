@@ -108,6 +108,7 @@ databaseChangeLog = {
 				COPY tipo_imovel (id,version,ativar_condominio,ativar_edificio,ativar_empreendimento,ativo,campo_area_id,campo_grupo_id,campo_unidade_id,date_created,last_updated,nome,nome_usu_criador,ordem_anuncio,ordem_internet,sigla,siglacp,sistema,texto_anuncio) FROM '/pinedu/modelo/tipo_imovel.csv' with csv header NULL 'NULL';
 				COPY tipo_imovel_relativo (id,relativo,tipo_imovel_id) FROM '/pinedu/modelo/tipo_imovel_relativo.csv' with csv header NULL 'NULL';
 				COPY tipo_rel_dep (dependencia_id,relativo_id,ordem) FROM '/pinedu/modelo/tipo_rel_dep.csv' with csv header NULL 'NULL';
+				COPY segmento_imovel (id, version, sistema, padrao, descricao, nome, ativo) FROM '/pinedu/modelo/segmento_imovel.csv' with csv header NULL 'NULL';
 				""")
 			}
 		}
@@ -159,6 +160,15 @@ databaseChangeLog = {
 						, setval('seq_usuario', (SELECT MAX( id ) FROM usuario))
 						, setval('seq_veiculo_comunicacao', (SELECT MAX( id ) FROM veiculo_comunicacao))
 						, setval('seq_venda', (SELECT MAX( id ) FROM venda));
+				""")
+			}
+		}
+	}
+	changeSet(author: "eduardo", id: "INIT_POS_AJUSTES") {
+		grailsChange {
+			change {
+				sql.execute("""
+				UPDATE tipo_imovel SET texto_anuncio = REPLACE(texto_anuncio, '\\n', E'\n');
 				""")
 			}
 		}

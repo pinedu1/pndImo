@@ -1,4 +1,27 @@
 databaseChangeLog = {
+	changeSet(author: "eduardo", id: "NORMALIZA") {
+		grailsChange {
+			change {
+				sql.execute("""
+CREATE OR REPLACE FUNCTION normaliza( textoEntrada text ) RETURNS text IMMUTABLE AS \$\$
+BEGIN
+    RETURN upper(translate(regexp_replace(textoEntrada,'([[:space:]]{2,})',' ','g'),'áéíóúàèìòùãõâêîôôäëïöüçñÁÉÍÓÚÀÈÌÒÙÃÕÂÊÎÔÛÄËÏÖÜÇÑ','aeiouaeiouaoaeiooaeioucnAEIOUAEIOUAOAEIOOAEIOUCN'));
+END;
+\$\$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION normaliza(textoEntrada character varying) RETURNS text IMMUTABLE AS \$\$
+BEGIN
+    RETURN normaliza(textoEntrada::text);
+END;
+\$\$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION normaliza(textoEntrada character) RETURNS text IMMUTABLE AS \$\$
+BEGIN
+    RETURN normaliza(textoEntrada::text);
+END;
+\$\$ LANGUAGE plpgsql;
+""")
+			}
+		}
+	}
 	changeSet(author: "eduardo", id: "DISTANCIA_GEOGRAFICA") {
 		grailsChange {
 			change {
@@ -46,7 +69,6 @@ BEGIN
     RETURN distancia_geografica(latitudeParameter::numeric, longitudeParameter::numeric, latitude::numeric, longitude::numeric);
 END;
 \$\$ LANGUAGE plpgsql;
-
 """)
 			}
 		}
