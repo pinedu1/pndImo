@@ -32,7 +32,7 @@ databaseChangeLog = {
 				COPY empresa (id,version,date_created,last_updated,nome_usu_criador,inscr_estadual,creci,marketing,pessoa_id,inscr_municipal,site,observacoes) FROM '/pinedu/modelo/empresa.csv' with csv header NULL 'NULL';
 				COPY aplicacao (id,version,icone,descricao,codigo,nome,ativo,versao_major,versao_minor,versao_release,versao_nome) FROM '/pinedu/modelo/aplicacao.csv' with csv header;
 				COPY carteira_imovel (id,version,sistema,padrao,descricao,nome,ativo) FROM '/pinedu/modelo/carteira_imovel.csv' with csv header;
-				COPY loja (id,version,sistema,date_created,last_updated,nome_usu_criador,ativo,latitude,atuacao,ip_loja,carteira_id,longitude,codigo,creci,pessoa_id,observacoes) FROM '/pinedu/modelo/loja.csv' with csv header;
+				COPY loja (id,version,sistema,date_created,last_updated,nome_usu_criador,ativo,latitude,atuacao,ip_loja,carteira_id,longitude,codigo,creci,pessoa_id,observacoes,nome) FROM '/pinedu/modelo/loja.csv' with csv header NULL 'NULL';
 				COPY corretor (id,version,sistema,date_created,last_updated,nome_usu_criador,ativo,categoria,corretorcp,codigo,creci,pessoa_id,observacoes) FROM '/pinedu/modelo/corretor.csv' with csv header;
 				COPY concorrente (id,version,ativo,codigo,concorrentecp,creci,date_created,last_updated,nome_usu_criador,observacoes,pessoa_id,sistema) FROM '/pinedu/modelo/concorrente.csv' with csv header NULL 'NULL';
 				""")
@@ -81,6 +81,7 @@ databaseChangeLog = {
 				COPY grupo_menu (grupo_id,menu_id) FROM '/pinedu/modelo/grupo_menu.csv' with csv header NULL 'NULL';
 				COPY usuario_grupo (user_id,grupo_id) FROM '/pinedu/modelo/usuario_grupo.csv' with csv header NULL 'NULL';
 				COPY usuario_menu (user_id,menu_id) FROM '/pinedu/modelo/usuario_menu.csv' with csv header NULL 'NULL';
+				COPY usuario_atalho (menu_id,user_id,esquerda,topo) FROM '/pinedu/modelo/usuario_atalho.csv' with csv header NULL 'NULL';
 				""")
 			}
 		}
@@ -105,7 +106,7 @@ databaseChangeLog = {
 				COPY finalidade_imovel (id,version,ativo,descricao,nome,padrao,sistema) FROM '/pinedu/modelo/finalidade_imovel.csv' with csv header NULL 'NULL';
 				COPY tipo_dependencia_itens (id,version,dependencia_id,nome,valor) FROM '/pinedu/modelo/tipo_dependencia_itens.csv' with csv header NULL 'NULL';
 				COPY tipo_dependencia (id,version,ativo,dependencia_pai_id,descricao,finalidade_id,nome,ordem,posicao,relativo,sigla,sistema,tipo_campo) FROM '/pinedu/modelo/tipo_dependencia.csv' with csv header NULL 'NULL';
-				COPY tipo_imovel (id,version,ativar_condominio,ativar_edificio,ativar_empreendimento,ativo,campo_area_id,campo_grupo_id,campo_unidade_id,date_created,last_updated,nome,nome_usu_criador,ordem_anuncio,ordem_internet,sigla,siglacp,sistema,texto_anuncio) FROM '/pinedu/modelo/tipo_imovel.csv' with csv header NULL 'NULL';
+				COPY tipo_imovel ( id, version, ativar_condominio, ativar_edificio, ativar_empreendimento, ativo, campo_area_id, campo_grupo_id, campo_unidade_id, date_created, last_updated, nome, nome_usu_criador, ordem_anuncio, ordem_internet, sigla, siglacp, sistema, texto_anuncio ) FROM '/pinedu/modelo/tipo_imovel.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				COPY tipo_imovel_relativo (id,relativo,tipo_imovel_id) FROM '/pinedu/modelo/tipo_imovel_relativo.csv' with csv header NULL 'NULL';
 				COPY tipo_rel_dep (dependencia_id,relativo_id,ordem) FROM '/pinedu/modelo/tipo_rel_dep.csv' with csv header NULL 'NULL';
 				COPY segmento_imovel (id, version, sistema, padrao, descricao, nome, ativo) FROM '/pinedu/modelo/segmento_imovel.csv' with csv header NULL 'NULL';

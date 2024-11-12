@@ -1,10 +1,2 @@
-2024-10-24 16:39:15,792  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-10-24 16:40:05,714  INFO [br.com.pinedu.Application] Started Application in 50.261 seconds (JVM running for 51.328)
-2024-10-24 16:55:28,617  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-10-24 16:56:20,003  INFO [br.com.pinedu.Application] Started Application in 51.739 seconds (JVM running for 52.845)
-2024-10-24 17:00:16,246  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-10-24 17:01:07,808  INFO [br.com.pinedu.Application] Started Application in 51.897 seconds (JVM running for 52.958)
-2024-10-24 17:04:49,601  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-10-24 17:05:40,278  INFO [br.com.pinedu.Application] Started Application in 51.013 seconds (JVM running for 52.117)
-2024-10-24 17:07:42,264  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
-2024-10-24 17:08:32,183  INFO [br.com.pinedu.Application] Started Application in 50.256 seconds (JVM running for 51.341)
+2024-11-10 11:15:08,467  INFO [br.com.pinedu.Application] The following 1 profile is active: "development"
+2024-11-10 11:16:22,630  INFO [br.com.pinedu.Application] Started Application in 74.6 seconds (JVM running for 76.054)

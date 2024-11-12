@@ -1853,6 +1853,12 @@ databaseChangeLog = {
 			column(name: "distrito_id", type: "BIGINT")
 		}
 		createTable(tableName: "loja") {
+			column(name: "nome", type: "VARCHAR(255)") {
+				constraints(nullable: "false")
+			}
+			column(name: "codigo", type: "BIGINT") {
+				constraints(nullable: "false")
+			}
 			column(name: "id", type: "BIGINT") {
 				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "lojaPK")
 			}
@@ -1869,9 +1875,6 @@ databaseChangeLog = {
 			column(name: "ip_loja", type: "VARCHAR(255)")
 			column(name: "carteira_id", type: "BIGINT")
 			column(name: "longitude", type: "FLOAT4")
-			column(name: "codigo", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
 			column(name: "creci", type: "VARCHAR(20)")
 			column(name: "pessoa_id", type: "BIGINT") {
 				constraints(nullable: "false")
@@ -2897,11 +2900,17 @@ databaseChangeLog = {
 			}
 		}
 		createTable(tableName: "usuario_atalho") {
+			column(name: "user_id", type: "BIGINT") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "usuario_atalhoPK")
+			}
 			column(name: "menu_id", type: "BIGINT") {
 				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "usuario_atalhoPK")
 			}
-			column(name: "user_id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "usuario_atalhoPK")
+			column(name: "esquerda", type: "BIGINT") {
+				constraints(nullable: "false")
+			}
+			column(name: "topo", type: "BIGINT") {
+				constraints(nullable: "false")
 			}
 		}
 		createTable(tableName: "usuario_grupo") {
