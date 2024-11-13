@@ -653,7 +653,7 @@ databaseChangeLog = {
 			}
 			column(name: "valor_multiplo", type: "INT")
 		}
-		createTable(tableName: "email_background") {
+		createTable(tableName: "email") {
 			column(name: "id", type: "VARCHAR(32)") {
 				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "email_backgroundPK")
 			}
@@ -705,7 +705,7 @@ databaseChangeLog = {
 				constraints(nullable: "false")
 			}
 		}
-		createTable(tableName: "email_background_email") {
+		createTable(tableName: "email_destinatario") {
 			column(name: "id", type: "VARCHAR(32)") {
 				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "email_background_emailPK")
 			}
@@ -717,7 +717,7 @@ databaseChangeLog = {
 				constraints(nullable: "false")
 			}
 		}
-		createTable(tableName: "email_background_imagem") {
+		createTable(tableName: "email_anexo") {
 			column(name: "id", type: "VARCHAR(32)") {
 				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "email_background_imagemPK")
 			}

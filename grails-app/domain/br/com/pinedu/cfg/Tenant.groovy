@@ -1,11 +1,13 @@
 package br.com.pinedu.cfg
 
+import grails.gorm.MultiTenant
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
 @EqualsAndHashCode(includes=['id'])
 @ToString(includes=['id'], includeNames=true, includePackage=false)
-class Tenant implements Serializable {
+
+class Tenant implements Serializable, MultiTenant<Tenant> {
     String id
     String nome
     String nomeNormalizado

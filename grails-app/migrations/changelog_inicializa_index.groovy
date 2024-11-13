@@ -129,8 +129,17 @@ databaseChangeLog = {
 		createIndex(indexName: "idxCamVei", tableName: "campanha") {
 			column(name: "veiculo_id")
 		}
-		createIndex(indexName: "idxCanal", tableName: "email_background") {
+		createIndex(indexName: "idxCanal", tableName: "email") {
 			column(name: "canal")
+		}
+		createIndex(indexName: "idxEmailDestEmail", tableName: "email_destinatario") {
+			column(name: "email_id")
+		}
+		createIndex(indexName: "idxEmailAnxEmail", tableName: "email_anexo") {
+			column(name: "email_id")
+		}
+		createIndex(indexName: "idxEmailAnxTipo", tableName: "email_anexo") {
+			column(name: "tipo_anexo")
 		}
 		createIndex(indexName: "idxCartImovAtiv", tableName: "carteira_imovel") {
 			column(name: "ativo")
@@ -213,7 +222,7 @@ databaseChangeLog = {
 		createIndex(indexName: "idxCondSind", tableName: "condominio") {
 			column(name: "sindico_id")
 		}
-		createIndex(indexName: "idxConfig", tableName: "email_background") {
+		createIndex(indexName: "idxConfig", tableName: "email") {
 			column(name: "config")
 		}
 		createIndex(indexName: "idxCorrAtivo", tableName: "corretor") {
@@ -297,13 +306,13 @@ databaseChangeLog = {
 		createIndex(indexName: "idxEdifTipPad", tableName: "edificio") {
 			column(name: "tipo_imovel_padrao_id")
 		}
-		createIndex(indexName: "idxEmaUsuResp", tableName: "email_background") {
+		createIndex(indexName: "idxEmaUsuResp", tableName: "email") {
 			column(name: "usuario_responsavel_id")
 		}
-		createIndex(indexName: "idxEmailBackStt", tableName: "email_background") {
+		createIndex(indexName: "idxEmailBackStt", tableName: "email") {
 			column(name: "status_envio")
 		}
-		createIndex(indexName: "idxEmailBackTent", tableName: "email_background") {
+		createIndex(indexName: "idxEmailBackTent", tableName: "email") {
 			column(name: "tentativa_envio")
 		}
 		createIndex(indexName: "idxEmpPes", tableName: "empresa") {
