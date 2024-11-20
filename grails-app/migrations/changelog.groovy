@@ -20,4 +20,8 @@ databaseChangeLog = {
     * Somente Constraints de FK
     * */
     include file: 'changelog_inicializa_FK.groovy'
+    /*
+    * Teste para implementação
+    * */
+    include file: 'changelog_teste.groovy'
 }
