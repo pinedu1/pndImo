@@ -6,8 +6,7 @@ import groovy.transform.ToString
 
 @EqualsAndHashCode(includes=['id'])
 @ToString(includes=['id'], includeNames=true, includePackage=false)
-
-class Tenant implements Serializable, MultiTenant<Tenant> {
+class Tenant implements Serializable {
     String id
     String nome
     String nomeNormalizado
