@@ -49,15 +49,17 @@ dependencies {
     implementation("org.grails:grails-plugin-services")
     implementation("org.grails:grails-plugin-url-mappings")
     implementation("org.grails:grails-web-boot")
+    implementation("org.liquibase:liquibase-core:4.19.0")
     implementation("org.grails.plugins:cache-ehcache:3.0.0")
     implementation("org.grails.plugins:gsp")
-    implementation("org.liquibase:liquibase-core:4.19.0")
     implementation("org.grails.plugins:hibernate5")
     implementation("org.grails.plugins:quartz:3.0.0")
     implementation("org.grails.plugins:scaffolding")
     implementation "org.grails:grails-datastore-gorm:8.1.2"
-
     implementation('org.grails.plugins:database-migration:5.0.0-SNAPSHOT')
+    implementation "org.grails.plugins:scaffolding"
+    runtimeOnly("org.grails.plugins:grails-console:2.1.1")
+    runtimeOnly("com.bertramlabs.plugins:asset-pipeline-grails:4.3.0")
 
     implementation("org.hibernate:hibernate-validator:6.2.5.Final")
     implementation("org.springframework.boot:spring-boot-autoconfigure")
@@ -69,16 +71,13 @@ dependencies {
     implementation( 'dk.glasius:external-config:4.0.0' )
     compileOnly("io.micronaut:micronaut-inject-groovy")
     console("org.grails:grails-console")
-    runtimeOnly("com.bertramlabs.plugins:asset-pipeline-grails:4.3.0")
     runtimeOnly("org.apache.tomcat:tomcat-jdbc")
     runtimeOnly("org.fusesource.jansi:jansi:1.18")
-    runtimeOnly("org.grails.plugins:grails-console:2.1.1")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("io.micronaut:micronaut-inject-groovy")
     testImplementation("org.grails:grails-gorm-testing-support")
     testImplementation("org.grails:grails-web-testing-support")
     testImplementation("io.micronaut:micronaut-http-client")
-
 }
 
 application {

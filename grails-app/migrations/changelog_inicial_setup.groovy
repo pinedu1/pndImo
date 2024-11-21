@@ -199,9 +199,8 @@ databaseChangeLog = {
 			column(name: "id", type: "VARCHAR(32)") {
 				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "arquivo_binarioPK")
 			}
-			column(name: "binario", type: "BYTEA") {
-				constraints(nullable: "false")
-			}
+			column(name: "binario", type: "BYTEA")
+			column(name: "base64", type: "TEXT")
 		}
 		createTable(tableName: "bairro") {
 			column(name: "id", type: "BIGINT") {

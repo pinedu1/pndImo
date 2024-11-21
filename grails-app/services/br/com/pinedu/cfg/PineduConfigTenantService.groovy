@@ -65,9 +65,9 @@ class PineduConfigTenantService {
         formattedContent.append("# Configurações da Aplicação\n")
         formattedContent.append("server.servlet.context-path=/app\n")
         formattedContent.append("grails.gorm.reactor.events=false\n")
-        formattedContent.append("hibernate.multiTenancy=DATABASE\n")
-        formattedContent.append("hibernate.multiTenancy.tenantResolverClass=br.com.pinedu.tenant.PineduTenantResolver\n")
-        formattedContent.append("grails.gorm.connectionSourcesClass=br.com.pinedu.datasource.PineduConnectionSource\n")  // Veja https://gorm.grails.org/latest/hibernate/manual/index.html#multiTenancy
+        //formattedContent.append("hibernate.multiTenancy=DATABASE\n")
+        //formattedContent.append("hibernate.multiTenancy.tenantResolverClass=br.com.pinedu.tenant.PineduTenantResolver\n")
+        //formattedContent.append("grails.gorm.connectionSourcesClass=br.com.pinedu.datasource.PineduConnectionSource\n")  // Veja https://gorm.grails.org/latest/hibernate/manual/index.html#multiTenancy
         formattedContent.append("grails.gorm.multiTenancy.mode=DATABASE\n")
         formattedContent.append("grails.gorm.multiTenancy.tenantResolverClass=br.com.pinedu.tenant.PineduTenantResolver\n")
         formattedContent.append("grails.plugin.databasemigration.updateAllOnStart=true\n")

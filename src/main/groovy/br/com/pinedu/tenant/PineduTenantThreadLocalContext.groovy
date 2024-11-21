@@ -16,7 +16,8 @@ class PineduTenantThreadLocalContext {
 			CONTEXT.set(name)
 			return
 		}
-		if ( (! MAPA_CONTEXTO.containsKey( name ) ) ) {
+		if ( (! PineduTenantThreadLocalContext.MAPA_CONTEXTO.containsKey( name ) ) ) {
+			println PineduTenantThreadLocalContext.MAPA_CONTEXTO.keySet()
 			throw new Exception("Contexto ${name}, não definido, verifique!!!")
 		}
 		if ( "".equals( name )) {

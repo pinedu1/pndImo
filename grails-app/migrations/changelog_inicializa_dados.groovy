@@ -35,9 +35,22 @@ databaseChangeLog = {
 				COPY loja (id,version,sistema,date_created,last_updated,nome_usu_criador,ativo,latitude,atuacao,ip_loja,carteira_id,longitude,codigo,creci,pessoa_id,observacoes,nome) FROM '/pinedu/modelo/loja.csv' with csv header NULL 'NULL';
 				COPY corretor (id,version,sistema,date_created,last_updated,nome_usu_criador,ativo,categoria,corretorcp,codigo,creci,pessoa_id,observacoes) FROM '/pinedu/modelo/corretor.csv' with csv header;
 				COPY concorrente (id,version,ativo,codigo,concorrentecp,creci,date_created,last_updated,nome_usu_criador,observacoes,pessoa_id,sistema) FROM '/pinedu/modelo/concorrente.csv' with csv header NULL 'NULL';
+				COPY arquivo_binario (id, base64) FROM '/pinedu/modelo/arquivo_stream.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
+				COPY arquivo( id, version, id_mask, stream_id, mime_type, tamanho, path, nome ) FROM '/pinedu/modelo/arquivo.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				""")
 			}
 		}
+	}
+	changeSet(author: "eduardo", id: "INIT_BINARIO") {
+		grailsChange {
+			change {
+				sql.execute("""
+				UPDATE arquivo_binario SET binario = decode( replace( base64, '\\n', E'\\n' ), 'base64' );
+				ALTER TABLE arquivo_binario DROP COLUMN base64;
+				""")
+			}
+		}
+		addNotNullConstraint(columnDataType: "BYTEA", tableName: "arquivo_binario", columnName: "binario")
 	}
 	changeSet(author: "eduardo", id: "INIT_EQUIPE") {
 		grailsChange {
@@ -67,6 +80,9 @@ databaseChangeLog = {
 			}
 		}
 	}
+	//COPY (SELECT id, replace(encode(binario, 'base64'), E'\n', '\n') AS imagem_base64 FROM arquivo_binario ) TO '/pinedu/modelo/arquivo_stream.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL', FORCE_QUOTE (id, imagem_base64));
+	//COPY (SELECT id, version, id_mask, stream_id, mime_type, tamanho, path, nome FROM arquivo ) TO '/pinedu/modelo/arquivo.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL', FORCE_QUOTE (id, id_mask, stream_id, mime_type, path, nome ) );
+	//COPY (SELECT user_id, preferencias_elt, preferencias_object, preferencias_idx FROM usuario_preferencias ) TO '/pinedu/modelo/usuario_preferencias.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL', FORCE_QUOTE ( preferencias_elt, preferencias_object, preferencias_idx ) );
 	changeSet(author: "eduardo", id: "INIT_USUARIO") {
 		grailsChange {
 			change {
@@ -82,6 +98,7 @@ databaseChangeLog = {
 				COPY usuario_grupo (user_id,grupo_id) FROM '/pinedu/modelo/usuario_grupo.csv' with csv header NULL 'NULL';
 				COPY usuario_menu (user_id,menu_id) FROM '/pinedu/modelo/usuario_menu.csv' with csv header NULL 'NULL';
 				COPY usuario_atalho (menu_id,user_id,esquerda,topo) FROM '/pinedu/modelo/usuario_atalho.csv' with csv header NULL 'NULL';
+				COPY usuario_preferencias ( user_id, preferencias_elt, preferencias_object, preferencias_idx ) FROM '/pinedu/modelo/usuario_preferencias.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				""")
 			}
 		}
