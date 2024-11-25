@@ -1384,6 +1384,9 @@ databaseChangeLog = {
 			column(name: "last_updated", type: "timestamp") {
 				constraints(nullable: "false")
 			}
+			column(name: "rating", type: "INT") {
+				constraints(nullable: "false", defaultValue: "0")
+			}
 			column(name: "loja_id", type: "BIGINT")
 		}
 		createTable(tableName: "imovel_proprietario") {

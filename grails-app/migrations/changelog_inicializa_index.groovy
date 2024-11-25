@@ -644,6 +644,9 @@ databaseChangeLog = {
 		createIndex(indexName: "idxImoPromTipCtr", tableName: "imovel_promocao") {
 			column(name: "tipo_contrato")
 		}
+		createIndex(indexName: "idxImoPromRating", tableName: "imovel_promocao") {
+			column(name: "rating")
+		}
 		createIndex(indexName: "idxImoPropCli", tableName: "imovel_proprietario") {
 			column(name: "cliente_id")
 		}

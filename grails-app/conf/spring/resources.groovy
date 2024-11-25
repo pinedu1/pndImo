@@ -9,7 +9,9 @@ beans = {
 	//applicationConfig(ApplicationConfig)
 	//clienteTenantListener(ClienteTenantListener)
 	//pineduCarregaProperties(PineduCarregaProperties)
-	pineduTenantResolver(PineduTenantResolver)
+	pineduTenantResolver(PineduTenantResolver) {
+		//grailsApplication = ref('grailsApplication')
+	}
 	pineduTenantUtils(PineduTenantUtils)
 	pineduTenantThreadLocalContext(PineduTenantThreadLocalContext)
 

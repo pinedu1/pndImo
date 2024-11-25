@@ -37,6 +37,7 @@ databaseChangeLog = {
 				COPY concorrente (id,version,ativo,codigo,concorrentecp,creci,date_created,last_updated,nome_usu_criador,observacoes,pessoa_id,sistema) FROM '/pinedu/modelo/concorrente.csv' with csv header NULL 'NULL';
 				COPY arquivo_binario (id, base64) FROM '/pinedu/modelo/arquivo_stream.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				COPY arquivo( id, version, id_mask, stream_id, mime_type, tamanho, path, nome ) FROM '/pinedu/modelo/arquivo.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
+				COPY empresa_imagem (imagem_id, empresa_id) FROM '/pinedu/modelo/empresa_imagem.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				""")
 			}
 		}
@@ -74,6 +75,7 @@ databaseChangeLog = {
 				COPY midia_tipo (id,version,descricao,nome,sistema,unidade) FROM '/pinedu/modelo/midia_tipo.csv' with csv header NULL 'NULL';
 				COPY parametros_sistema (id,version,cidade_id,cidade_corretagem_id,deduzir_despezas_comissoes,dias_devolucao_chaves,dias_expiracao_proposta,dias_limpar_thumb_nails,dias_prox_atu,dias_vistoria_placa,email_password,email_port,email_server,email_ssl,email_username,emails_por_minuto,moeda_avaliacao_id,ordem_fotografia_imovel,percentual_lancamento,percentual_locacao,percentual_venda,regiao_corretagem_id,rodizio_interessado,start_ssl,tamanho_quadro_chaves,tempo_verificar_mensagens,uf_id,validade_imovel_internet,valor_placa,start_tls,sugestao_interesse,wordpress_server,wordpress_path,wordpress_update,tipo_imovel_id,tipo_contrato,verificar_duplicidade_update_imovel,interessado_autocomplete_inativo,relatorio_visita_imprime_proprietario,incluir_interessado_sem_interesse,atualizar_interessado_sem_interesse,bloquear_corretor_automaticamente,dias_bloquear_corretor,ip_empresa,bloquear_login_fora_empresa,enviar_fotos_edificio_portais) FROM '/pinedu/modelo/parametros_sistema.csv' with csv header NULL 'NULL';
 				COPY quadro_chaves (id,version,ativo,descricao,nome,padrao,sistema,tamanho) FROM '/pinedu/modelo/quadro_chaves.csv' with csv header NULL 'NULL';
+				COPY ( id, posicao, quadro_chaves_id, status, date_created, last_updated ) FROM quadro_chaves_posicao '/pinedu/modelo/quadro_chaves_posicao.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				COPY texto_sistema (id,version,chave,conteudo,titulo,sistema,ativo) FROM '/pinedu/modelo/texto_sistema.csv' with csv header NULL 'NULL';
 				COPY veiculo_comunicacao (id,version,ativo,sistema,date_created,descricao,last_updated,nome,nome_usu_criador,pessoa_id) FROM '/pinedu/modelo/veiculo_comunicacao.csv' with csv header NULL 'NULL';
 				""")

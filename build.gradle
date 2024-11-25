@@ -4,6 +4,7 @@ buildscript {
     }
 }
 plugins {
+    id "java"
     id "groovy"
     id "org.grails.grails-gsp"
     id "org.grails.grails-web"
