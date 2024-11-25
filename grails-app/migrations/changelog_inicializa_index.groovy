@@ -947,11 +947,14 @@ databaseChangeLog = {
 		createIndex(indexName: "idxNotaAva", tableName: "nota_promissoria_pessoa") {
 			column(name: "avalista_id")
 		}
-		createIndex(indexName: "idxNotaBene", tableName: "nota_promissoria") {
-			column(name: "beneficiario_id")
-		}
 		createIndex(indexName: "idxNotaEmit", tableName: "nota_promissoria_pessoa") {
 			column(name: "emitente_id")
+		}
+		createIndex(indexName: "idxNotaPes", tableName: "nota_promissoria_pessoa") {
+			column(name: "pessoa_id")
+		}
+		createIndex(indexName: "idxNotaBene", tableName: "nota_promissoria") {
+			column(name: "beneficiario_id")
 		}
 		createIndex(indexName: "idxNotaImpDt", tableName: "nota_promissoria") {
 			column(name: "ultima_impressao")

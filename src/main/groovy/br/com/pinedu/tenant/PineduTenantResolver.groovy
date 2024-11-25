@@ -1,5 +1,6 @@
 package br.com.pinedu.tenant
 
+import grails.core.GrailsApplication
 import groovy.transform.CompileStatic
 import org.grails.datastore.mapping.multitenancy.TenantResolver
 import org.grails.datastore.mapping.multitenancy.exceptions.TenantNotFoundException
@@ -9,7 +10,9 @@ import org.springframework.web.context.request.ServletWebRequest
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver
 import javax.servlet.http.HttpServletRequest
 @CompileStatic
-class PineduTenantResolver implements TenantResolver, CurrentTenantIdentifierResolver {
+class PineduTenantResolver implements TenantResolver, CurrentTenantIdentifierResolver, PineduTenant {
+	private static final Set<String> MODOS_TENANCY = new HashSet<>( [ 'DATABASE', 'SCHEMA', 'DISCRIMINATOR' ] )
+	GrailsApplication grailsApplication
 	/*
 	O nome do servidor será chave para o TENANT
 	Por exemplo, no servidor cada cliente terá seu nome de domínio definido como:
@@ -136,5 +139,16 @@ class PineduTenantResolver implements TenantResolver, CurrentTenantIdentifierRes
 	@Override
 	boolean validateExistingCurrentSessions() {
 		return true
+	}
+
+	@Override
+	String getCurrentTenant() {
+		return resolveCurrentTenantIdentifier()
+	}
+
+	@Override
+	Boolean isTenantMode() {
+		String multiTenancyMode = grailsApplication.config.getProperty('grails.gorm.multiTenancy.mode', String)
+		return PineduTenantResolver.MODOS_TENANCY.contains( multiTenancyMode )
 	}
 }

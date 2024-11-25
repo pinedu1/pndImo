@@ -2080,13 +2080,13 @@ databaseChangeLog = {
 			}
 		}
 		createTable(tableName: "nota_promissoria_pessoa") {
-			column(name: "avalista_id", type: "VARCHAR(32)") {
+			column(name: "pessoa_id", type: "BIGINT") {
 				constraints(nullable: "false")
 			}
-			column(name: "pessoa_id", type: "BIGINT")
 			column(name: "emitente_id", type: "VARCHAR(32)") {
 				constraints(nullable: "false")
 			}
+			column(name: "avalista_id", type: "VARCHAR(32)")
 		}
 		createTable(tableName: "parametro_classe_interessado") {
 			column(name: "classe_interessado_id", type: "BIGINT") {

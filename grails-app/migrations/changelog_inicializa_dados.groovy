@@ -20,7 +20,7 @@ databaseChangeLog = {
 				COPY pessoa_endereco (id,version,bairro,tipo_endereco_id,sistema,cidade,date_created,last_updated,nome_usu_criador,uf,logradouro,numero,exterior,tipo,cep,logradourodne_id,complemento,pessoa_id,observacoes) FROM '/pinedu/modelo/pessoa_endereco.csv' with csv header;
 				COPY pessoa_telefone (id,version,tipo_endereco_id,sistema,date_created,last_updated,nome_usu_criador,telefone,ramal,pessoa_id,observacoes) FROM '/pinedu/modelo/pessoa_telefone.csv' with csv header;
 				COPY pessoa_email (id,version,tipo_endereco_id,sistema,date_created,last_updated,nome_usu_criador,nome,endereco,pessoa_id,observacoes) FROM '/pinedu/modelo/pessoa_email.csv' with csv header;
-				COPY pessoa (id,version,estado_civil,twitter,sistema,inscricao,date_created,cod_nome_normalizado,last_updated,nome_usu_criador,rg,nome,email_padrao_id,banco_padrao_id,sexo,ativo,foto_id,endereco_padrao_id,bloquear_envio_email,profissao,google_plus,skype,nacionalidade,nascimento_conjuge,cpf_conjuge,cod_nome,codigo,rg_conjuge,telefone_padrao_id,face_book,nome_normalizado,cpf,tipo_pessoa,nome_conjuge,site,rg_data_expedicao,observacoes,rg_orgao_emissor,nascimento) FROM '/pinedu/modelo/pessoa.csv' with csv header;
+				COPY pessoa (id,codigo,version,nome,cod_nome,estado_civil,sistema,date_created,cod_nome_normalizado,last_updated,nome_usu_criador,email_padrao_id,sexo,ativo,foto_id,endereco_padrao_id,nacionalidade,telefone_padrao_id,nome_normalizado,cpf,tipo_pessoa,observacoes,nascimento) FROM '/pinedu/modelo/pessoa.csv'  WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				""")
 			}
 		}
@@ -41,17 +41,6 @@ databaseChangeLog = {
 				""")
 			}
 		}
-	}
-	changeSet(author: "eduardo", id: "INIT_BINARIO") {
-		grailsChange {
-			change {
-				sql.execute("""
-				UPDATE arquivo_binario SET binario = decode( replace( base64, '\\n', E'\\n' ), 'base64' );
-				ALTER TABLE arquivo_binario DROP COLUMN base64;
-				""")
-			}
-		}
-		addNotNullConstraint(columnDataType: "BYTEA", tableName: "arquivo_binario", columnName: "binario")
 	}
 	changeSet(author: "eduardo", id: "INIT_EQUIPE") {
 		grailsChange {
@@ -75,7 +64,7 @@ databaseChangeLog = {
 				COPY midia_tipo (id,version,descricao,nome,sistema,unidade) FROM '/pinedu/modelo/midia_tipo.csv' with csv header NULL 'NULL';
 				COPY parametros_sistema (id,version,cidade_id,cidade_corretagem_id,deduzir_despezas_comissoes,dias_devolucao_chaves,dias_expiracao_proposta,dias_limpar_thumb_nails,dias_prox_atu,dias_vistoria_placa,email_password,email_port,email_server,email_ssl,email_username,emails_por_minuto,moeda_avaliacao_id,ordem_fotografia_imovel,percentual_lancamento,percentual_locacao,percentual_venda,regiao_corretagem_id,rodizio_interessado,start_ssl,tamanho_quadro_chaves,tempo_verificar_mensagens,uf_id,validade_imovel_internet,valor_placa,start_tls,sugestao_interesse,wordpress_server,wordpress_path,wordpress_update,tipo_imovel_id,tipo_contrato,verificar_duplicidade_update_imovel,interessado_autocomplete_inativo,relatorio_visita_imprime_proprietario,incluir_interessado_sem_interesse,atualizar_interessado_sem_interesse,bloquear_corretor_automaticamente,dias_bloquear_corretor,ip_empresa,bloquear_login_fora_empresa,enviar_fotos_edificio_portais) FROM '/pinedu/modelo/parametros_sistema.csv' with csv header NULL 'NULL';
 				COPY quadro_chaves (id,version,ativo,descricao,nome,padrao,sistema,tamanho) FROM '/pinedu/modelo/quadro_chaves.csv' with csv header NULL 'NULL';
-				COPY ( id, posicao, quadro_chaves_id, status, date_created, last_updated ) FROM quadro_chaves_posicao '/pinedu/modelo/quadro_chaves_posicao.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
+				COPY quadro_chaves_posicao ( id, posicao, quadro_chaves_id, status, date_created, last_updated ) FROM '/pinedu/modelo/quadro_chaves_posicao.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				COPY texto_sistema (id,version,chave,conteudo,titulo,sistema,ativo) FROM '/pinedu/modelo/texto_sistema.csv' with csv header NULL 'NULL';
 				COPY veiculo_comunicacao (id,version,ativo,sistema,date_created,descricao,last_updated,nome,nome_usu_criador,pessoa_id) FROM '/pinedu/modelo/veiculo_comunicacao.csv' with csv header NULL 'NULL';
 				""")
@@ -90,7 +79,7 @@ databaseChangeLog = {
 			change {
 				sql.execute("""
 				COPY regra (id,version,authority,descricao,sistema) FROM '/pinedu/modelo/regra.csv' with csv header NULL 'NULL';
-				COPY usuario (id,version,email_port,start_ssl,sistema,ativar_email,corretor_id,password_expired,account_expired,ultimo_login,email_password,carteira_id,start_tls,username,email_server,email_username,account_locked,password,loja_id,ultimo_bloqueio,pessoa_id,email_ssl,enabled,email_remetente,ultimo_login_ip) FROM '/pinedu/modelo/usuario.csv' with csv header NULL 'NULL';
+				COPY usuario (id,version,sistema,username,password,pessoa_id,corretor_id,carteira_id,ativar_email,enabled,password_expired,account_expired,account_locked) FROM '/pinedu/modelo/usuario.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				COPY requestmap (id,version,config_attribute,url) FROM '/pinedu/modelo/requestmap.csv' with csv header NULL 'NULL';
 				COPY usuario_regra (user_id,role_id) FROM '/pinedu/modelo/usuario_regra.csv' with csv header NULL 'NULL';
 				COPY grupo (id,version,sistema,descricao,nome,aplicacao_id,ativo) FROM '/pinedu/modelo/grupo.csv' with csv header NULL 'NULL';
@@ -99,8 +88,8 @@ databaseChangeLog = {
 				COPY grupo_menu (grupo_id,menu_id) FROM '/pinedu/modelo/grupo_menu.csv' with csv header NULL 'NULL';
 				COPY usuario_grupo (user_id,grupo_id) FROM '/pinedu/modelo/usuario_grupo.csv' with csv header NULL 'NULL';
 				COPY usuario_menu (user_id,menu_id) FROM '/pinedu/modelo/usuario_menu.csv' with csv header NULL 'NULL';
-				COPY usuario_atalho (menu_id,user_id,esquerda,topo) FROM '/pinedu/modelo/usuario_atalho.csv' with csv header NULL 'NULL';
-				COPY usuario_preferencias ( user_id, preferencias_elt, preferencias_object, preferencias_idx ) FROM '/pinedu/modelo/usuario_preferencias.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
+				COPY usuario_atalho (user_id,menu_id,esquerda,topo) FROM '/pinedu/modelo/usuario_atalho.csv' with csv header NULL 'NULL';
+				COPY usuario_preferencias ( user_id,preferencias_elt,preferencias_idx ) FROM '/pinedu/modelo/usuario_preferencias.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				""")
 			}
 		}
@@ -129,6 +118,18 @@ databaseChangeLog = {
 				COPY tipo_imovel_relativo (id,relativo,tipo_imovel_id) FROM '/pinedu/modelo/tipo_imovel_relativo.csv' with csv header NULL 'NULL';
 				COPY tipo_rel_dep (dependencia_id,relativo_id,ordem) FROM '/pinedu/modelo/tipo_rel_dep.csv' with csv header NULL 'NULL';
 				COPY segmento_imovel (id, version, sistema, padrao, descricao, nome, ativo) FROM '/pinedu/modelo/segmento_imovel.csv' with csv header NULL 'NULL';
+				""")
+			}
+		}
+	}
+	//COPY (SELECT user_id, preferencias_elt, preferencias_object, preferencias_idx FROM usuario_preferencias ) TO '/pinedu/modelo/usuario_preferencias.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL', FORCE_QUOTE ( preferencias_elt, preferencias_object, preferencias_idx ) );
+	changeSet(author: "eduardo", id: "INIT_ACESSORIOS") {
+		grailsChange {
+			change {
+				sql.execute("""
+				COPY nota_promissoria ( id, version, ultima_impressao, date_created, last_updated, nome_usu_criador, emissao, praca, beneficiario_id, observacoes ) FROM '/pinedu/modelo/nota_promissoria.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
+				COPY nota_promissoria_pessoa ( avalista_id, pessoa_id, emitente_id ) FROM '/pinedu/modelo/nota_promissoria_pessoa.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
+				COPY nota_promissoria_parcela ( id, version, parcela, valor, nota_id, data ) FROM '/pinedu/modelo/nota_promissoria_parcela.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				""")
 			}
 		}
@@ -189,6 +190,9 @@ databaseChangeLog = {
 			change {
 				sql.execute("""
 				UPDATE tipo_imovel SET texto_anuncio = REPLACE(texto_anuncio, '\\n', E'\n');
+				UPDATE nota_promissoria SET observacoes = REPLACE(observacoes, '\\n', E'\n');
+				UPDATE arquivo_binario SET binario = decode( replace( base64, '\\n', E'\\n' ), 'base64' );
+				ALTER TABLE arquivo_binario DROP COLUMN base64;
 				""")
 			}
 		}
