@@ -105,6 +105,8 @@ databaseChangeLog = {
 			}
 		}
 	}
+	//COPY ( SELECT id,relativo,tipo_imovel_id FROM tipo_imovel_relativo ORDER by tipo_imovel_id asc, relativo asc ) TO '/pinedu/modelo/tipo_imovel_relativo.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL', FORCE_QUOTE ( id,relativo ) );
+	//COPY ( SELECT dependencia_id,relativo_id,ordem FROM tipo_rel_dep ORDER BY relativo_id asc, ordem asc ) TO '/pinedu/modelo/tipo_rel_dep.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL', FORCE_QUOTE ( relativo_id ) );
 	changeSet(author: "eduardo", id: "INIT_TIPOIMOVEL") {
 		grailsChange {
 			change {
