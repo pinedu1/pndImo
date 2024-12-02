@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NOME_HTTP="httpd"
 HTTPD_PATH="/etc/$NOME_HTTP"

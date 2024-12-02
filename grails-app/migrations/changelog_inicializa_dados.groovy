@@ -53,6 +53,8 @@ databaseChangeLog = {
 			}
 		}
 	}
+	//COPY (SELECT tipo_contrato, departamento, parametro_sistema_id, percentual FROM parametro_sistema_comissao ORDER BY tipo_contrato ASC, departamento ASC ) TO '/pinedu/modelo/parametro_sistema_comissao.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL', FORCE_QUOTE ( departamento ) );
+	//COPY ( SELECT classe_interessado_id, parametro_sistema_id, dias FROM parametro_classe_interessado ) TO '/pinedu/modelo/parametro_classe_interessado.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 	changeSet(author: "eduardo", id: "INIT_MIDIA") {
 		grailsChange {
 			change {
@@ -63,6 +65,8 @@ databaseChangeLog = {
 				COPY faixa_valor (id,version,descricao,padrao,tipo_contrato,valor_final,valor_inicial) FROM '/pinedu/modelo/faixa_valor.csv' with csv header NULL 'NULL';
 				COPY midia_tipo (id,version,descricao,nome,sistema,unidade) FROM '/pinedu/modelo/midia_tipo.csv' with csv header NULL 'NULL';
 				COPY parametros_sistema (id,version,cidade_id,cidade_corretagem_id,deduzir_despezas_comissoes,dias_devolucao_chaves,dias_expiracao_proposta,dias_limpar_thumb_nails,dias_prox_atu,dias_vistoria_placa,email_password,email_port,email_server,email_ssl,email_username,emails_por_minuto,moeda_avaliacao_id,ordem_fotografia_imovel,percentual_lancamento,percentual_locacao,percentual_venda,regiao_corretagem_id,rodizio_interessado,start_ssl,tamanho_quadro_chaves,tempo_verificar_mensagens,uf_id,validade_imovel_internet,valor_placa,start_tls,sugestao_interesse,wordpress_server,wordpress_path,wordpress_update,tipo_imovel_id,tipo_contrato,verificar_duplicidade_update_imovel,interessado_autocomplete_inativo,relatorio_visita_imprime_proprietario,incluir_interessado_sem_interesse,atualizar_interessado_sem_interesse,bloquear_corretor_automaticamente,dias_bloquear_corretor,ip_empresa,bloquear_login_fora_empresa,enviar_fotos_edificio_portais) FROM '/pinedu/modelo/parametros_sistema.csv' with csv header NULL 'NULL';
+				COPY parametro_sistema_comissao ( tipo_contrato, departamento, parametro_sistema_id, percentual ) FROM '/pinedu/modelo/parametro_sistema_comissao.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
+				COPY parametro_classe_interessado ( classe_interessado_id, parametro_sistema_id, dias ) FROM '/pinedu/modelo/parametro_classe_interessado.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				COPY quadro_chaves (id,version,ativo,descricao,nome,padrao,sistema,tamanho) FROM '/pinedu/modelo/quadro_chaves.csv' with csv header NULL 'NULL';
 				COPY quadro_chaves_posicao ( id, posicao, quadro_chaves_id, status, date_created, last_updated ) FROM '/pinedu/modelo/quadro_chaves_posicao.csv' WITH ( FORMAT csv, HEADER true, DELIMITER ',', QUOTE '"', NULL 'NULL' );
 				COPY texto_sistema (id,version,chave,conteudo,titulo,sistema,ativo) FROM '/pinedu/modelo/texto_sistema.csv' with csv header NULL 'NULL';
