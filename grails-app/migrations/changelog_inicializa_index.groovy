@@ -1344,8 +1344,4 @@ databaseChangeLog = {
 			column(name: "imovel_id")
 		}
 	}
-	changeSet(author: "eduardo", id: "INICIAL_SETUP_CHECK_CONSTRAINTS") {
-		addCheckConstraint(tableName: "email_destinatario", constraintName: "chk_endereco_not_blank", condition: "TRIM(endereco) <> ''")
-		addCheckConstraint(tableName: "pessoa", constraintName: "chk_nome_not_blank", condition: "TRIM(nome) <> ''")
-	}
 }
