@@ -720,9 +720,7 @@ databaseChangeLog = {
 			column(name: "id", type: "VARCHAR(32)") {
 				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "email_background_imagemPK")
 			}
-			column(name: "imagem_id", type: "VARCHAR(255)") {
-				constraints(nullable: "false")
-			}
+			column(name: "imagem_id", type: "VARCHAR(255)")
 			column(name: "mime_type", type: "VARCHAR(255)")
 			column(name: "descricao", type: "VARCHAR(255)")
 			column(name: "url", type: "VARCHAR(512)")
