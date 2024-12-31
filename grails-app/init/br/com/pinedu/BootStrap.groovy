@@ -22,10 +22,29 @@ class BootStrap {
     def destroy = {
     }
     private void inicializaMultiTenant() {
-        if ( Boolean.TRUE.equals(DEBUG) && Tenant.count() <= 0 ) {
+/*
+        !!!  Esta função inclui no database PND, varios TENANTS, para teste
+        !!! Não Executar
+*/
+        if ( false && Boolean.TRUE.equals(DEBUG) && Tenant.count() <= 0 ) {
             pineduConfigTenantService.inclueDummyTenants()
         }
-        pineduConfigTenantService.atualizaConfigTenants()
+        /*
+        * Esta função no START do APP
+        * Recolhe todos os TENANTS do SGBD:PND
+        * E grava o arquivo:
+        * /pinedu/config/appImo.properties
+        *
+        * Não está sendo executada ainda
+        * Porque não estou gravando os Tenants no SGBD
+        */
+        if (false) {
+            pineduConfigTenantService.atualizaConfigTenants()
+        }
+
+        /**
+         * Esta função
+         */
         pineduConfigTenantService.inicializaThreadContext()
     }
     private void testaMultiTenant() {

@@ -3,57 +3,72 @@
 NOME_HTTP="httpd"
 HTTPD_PATH="/etc/$NOME_HTTP"
 HTTPD_LOG_PATH="/var/log/$NOME_HTTP"
-HTTPD_ROOT_PATH="/var/www/html"
-databases=( "pnd" "joao" "pedro" "antonio" "jose" "felipe" "alberto" )
-#databases=( "pnd" "adriano" "alexandre" "alvaro" "andre" "arthur" "augusto" "benicio" "bruno" "caio" "carlos" "daniel" "diego" "edson" "eduardo" "emerson" "ezequiel" "felipe" "fernando" "gabriel" "gustavo" "hugo" "igor" "joaquim" "jorge" "leandro" "leonardo" "lucas" "marco" "matheus" "murilo" "nathan" "otavio" "paulo" "pedro" "rafael" "ramiro" "raoni" "renato" "robson" "samuel" "sidney" "silvio" "thiago" "tiago" "vinicius" "vitor" "wesley")
+HTTPD_ROOT_PATH="/pinedu/contexts"
+FILECFG="/pinedu/config/appImo.properties"
 #psql --username=pinedu --dbname=template1 -h localhost -c "SELECT pid, usename, application_name, client_addr, client_hostname, client_port, query_start FROM pg_stat_activity;"
+declare -A mapaDataBase
 
-
-
-
+# Adicionando chaves e valores
+mapaDataBase["pnd"]="x8DwsDRMUvxqrq#L"
+mapaDataBase["joao"]="vaP#PxZC5kWsT#KR"
+mapaDataBase["penta"]="93R6J3cfXSICpkN!"
 
 cria_httpd_virtual_host() {
 	NOME_HOST="$(echo $1 | tr '[:upper:]' '[:lower:]' )"
-	HOST_URL="$NOME_HOST.local.net"
+	DOMAIN=$2
+	HOST_URL="$NOME_HOST.$DOMAIN"
 	cd $HTTPD_PATH/sites-available
-	NOME_FILE="99-$NOME_HOST-local-net.conf"
-	FILE="$HTTPD_PATH/sites-available/$NOME_FILE"
-	mkdir -p "$HTTPD_ROOT_PATH/$NOME_HOST"
+	NOME_FILE="002-$NOME_HOST-${DOMAIN//./-}"
+	FILE="$HTTPD_PATH/sites-available/$NOME_FILE.conf"
+	WEBFOLDER="$HTTPD_ROOT_PATH/$NOME_HOST/public_html"
+	mkdir -p $WEBFOLDER
 	cat << ZEOF > $FILE
 <VirtualHost *:80>
-	ServerAdmin eduardo@pinedu.com.br
-	ServerName $HOST_URL
-	DocumentRoot $HTTPD_ROOT_PATH/$NOME_HOST
+  ServerAdmin eduardo@pinedu.com.br
+  ServerName $HOST_URL
+  DocumentRoot $WEBFOLDER
 
-	ErrorLog $HTTPD_LOG_PATH/$NOME_HOST-error.log
-	LogLevel warn
-	CustomLog $HTTPD_LOG_PATH/$NOME_HOST-access.log combined
+  LogLevel warn
+  ErrorLog $HTTPD_LOG_PATH/$NOME_HOST-${DOMAIN//./-}-error.log
+  CustomLog $HTTPD_LOG_PATH/$NOME_HOST-${DOMAIN//./-}-access.log combined
 
-	<Directory "$HTTPD_ROOT_PATH/$NOME_HOST" >
-		Options -Indexes +FollowSymLinks +MultiViews
-		AllowOverride All
-		Require all granted
-	</Directory>
+  <Directory $WEBFOLDER >
+    Options -Indexes +FollowSymLinks +MultiViews
+    AllowOverride All
+    Require all granted
+    # Configuração para o WordPress (mod_rewrite)
+    <IfModule mod_rewrite.c>
+      RewriteEngine On
+      RewriteBase /
+      RewriteRule ^index\.php$ - [L]
+      RewriteCond %{REQUEST_FILENAME} !-f
+      RewriteCond %{REQUEST_FILENAME} !-d
+      RewriteRule . /index.php [L]
+    </IfModule>
+  </Directory>
 
-	ProxyPass /app http://localhost:8080/app
-	ProxyPassReverse /app http://localhost:8080/app
-	
-	<LocationMatch "/app" >
-		Header add X-Tenant-ID "$(echo $NOME_HOST | tr '[:lower:]' '[:upper:]' )"
-		RequestHeader set X-Tenant-ID "$(echo $NOME_HOST | tr '[:lower:]' '[:upper:]' )"
-	</LocationMatch>
-	
-	<Proxy "unix:/run/php-fpm/www.sock|fcgi://php-fpm">
-		ProxySet disablereuse=off
-	</Proxy>
+  # Configuração do Proxy para WebSocket (STOMP)
+  ProxyPass /app/stomp ws://localhost:8080/app/stomp
+  ProxyPassReverse /app/stomp ws://localhost:8080/app/stomp
 
-	<FilesMatch \.php$>
-		SetHandler proxy:fcgi://php-fpm
-	</FilesMatch>    
+  ProxyPass /app http://localhost:8080/app
+  ProxyPassReverse /app http://localhost:8080/app
+
+  <LocationMatch "/app" >
+    Header add X-Tenant-ID $(echo $NOME_HOST | tr '[:lower:]' '[:upper:]' )
+    RequestHeader set X-Tenant-ID $(echo $NOME_HOST | tr '[:lower:]' '[:upper:]' )
+  </LocationMatch>
+
+  <Proxy "unix:/run/php-fpm/www.sock|fcgi://php-fpm">
+    ProxySet disablereuse=off
+  </Proxy>
+  <FilesMatch \.php$>
+    SetHandler proxy:fcgi://php-fpm
+  </FilesMatch>
 </VirtualHost>
 ZEOF
-	FILE="$HTTPD_ROOT_PATH/$NOME_HOST/index.html"
-	cat << ZEOF2 > $FILE
+	FILE="$WEBFOLDER/index.html"
+	cat << ZEOF > $FILE
 <!DOCTYPE html>
 <html lang="pt-BR">
 	<head>
@@ -125,8 +140,8 @@ ZEOF
 	</footer>
 	</body>
 </html>
-ZEOF2
-	ln -s "$HTTPD_PATH/sites-available/$NOME_FILE" "$HTTPD_PATH/sites-enabled/$NOME_FILE" 
+ZEOF
+	ln -s "$HTTPD_PATH/sites-available/$NOME_FILE.conf" "$HTTPD_PATH/sites-enabled/$NOME_FILE.conf"
 	systemctl reload $NOME_HTTP
 }
 cria_role() {
@@ -141,18 +156,81 @@ cria_database() {
 }
 cria_hosts() {
 	NOME_HOST=$(echo $1 | tr '[:upper:]' '[:lower:]' )
-	HOST_URL="$NOME_HOST.local.net"
+	DOMAIN=$2
+	HOST_URL=$NOME_HOST.$DOMAIN
 	echo "127.0.0.1 $HOST_URL" >> /etc/hosts
+}
+inicializa_Tenants() {
+  FILE=$1
+  rm -f $FILE
+cat << ZEOF > $FILE
+# Configurações da Aplicação
+server.servlet.context-path=/app
+grails.gorm.reactor.events=false
+grails.gorm.multiTenancy.mode=DATABASE
+grails.gorm.multiTenancy.tenantResolverClass=br.com.pinedu.tenant.PineduTenantResolver
+grails.plugin.databasemigration.updateAllOnStart=true
+grails.plugin.databasemigration.updateOnStartFileName=changelog.groovy
+grails.plugin.databasemigration.changelogFileName=changelog.groovy
+# DataBases
+#
+ZEOF
+}
+adicionar_tenant_config() {
+	USERNAME=$1
+	PASSWORD=$2
+	CONTEXT="$(echo $USERNAME | tr '[:lower:]' '[:upper:]')"
+	DOMAIN=$3
+	FILE=$4
+cat << ZEOF >> "$FILE.cfg"
+#
+# Cliente: $USERNAME
+$CONTEXT.ativo=true
+$CONTEXT.contexto=$USERNAME
+$CONTEXT.documentRoot=/pinedu/contexts/$USERNAME/public_html
+$CONTEXT.email=$USERNAME@$DOMAIN
+$CONTEXT.maximoSimultaneos=5
+$CONTEXT.nome=$USERNAME
+$CONTEXT.pathMedia=/pinedu/contexts/$USERNAME/media
+$CONTEXT.posicaoLogo=inferior-direito
+$CONTEXT.promocao=false
+$CONTEXT.serverBaseUrl=http://$USERNAME.$DOMAIN
+dataSources.$CONTEXT.contexto=$USERNAME
+dataSources.$CONTEXT.dbCreate=none
+dataSources.$CONTEXT.password=$PASSWORD
+dataSources.$CONTEXT.url=jdbc:postgresql://localhost:5432/$USERNAME?ApplicationName=pndimo_DB:$USERNAME
+dataSources.$CONTEXT.username=$USERNAME
+dataSources.$CONTEXT.properties.jmxEnabled: true
+dataSources.$CONTEXT.properties.initialSize: 3
+dataSources.$CONTEXT.properties.maxActive: 5
+dataSources.$CONTEXT.properties.minIdle: 2
+dataSources.$CONTEXT.properties.maxIdle: 3
+#
+ZEOF
 }
 criar() {
 	db=$1
-	cria_role "$db" '$db-\$P\$R%ccG!xo9%JFwet'
-	cria_database "$db" "$db"
-    	cria_httpd_virtual_host $db
-    	cria_hosts $db
+	passwd=$2
+	domain=$3
+
+	inicializa_Tenants $FILECFG
+	if [[ "$db" != "pnd" ]]; then
+    adicionar_tenant_config $db $passwd $domain $FILECFG
+  fi
+  cria_httpd_virtual_host $db $domain
+  cria_role $db $passwd
+  cria_database $db $db
+  cria_hosts $db $domain
 }
-for db in "${databases[@]}"; do
-	criar "$db"
+
+#!!! PRODUÇÂO !!!
+# Configuração do UserDir no Apache
+#Habilitar o módulo mod_userdir: O módulo responsável por essa funcionalidade é o mod_userdir. Certifique-se de que ele está habilitado no Apache.
+rm -f "$FILECFG.cfg"
+for db in ${!mapaDataBase[@]}; do
+  criar $db ${mapaDataBase[$db]} 'pndimo.com.br'
 done
-
-
+cat "$FILECFG.cfg" >> "$FILECFG"
+rm -f "$FILECFG.cfg"
+chown -Rf eduardo: /pinedu
+chmod -Rf 777 /pinedu

@@ -8,6 +8,10 @@ import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import org.springframework.context.ApplicationContext
 
+/**
+ * Classe de Utilitário para organizar o Tenants
+ *
+ */
 @CompileStatic
 class PineduConfigTenantService {
     private static final DBCREATE_MODE = 'none'
@@ -37,6 +41,12 @@ class PineduConfigTenantService {
 
         return !( mode == null || ''.equals( mode) )
     }
+    /**
+     * Varre o arquivo:
+     *  - /pinedu/config/appImo.properties
+     *  E recolhe os tenants, para criar o contexto em:
+     *  PineduTenantThreadLocalContext
+     */
     @CompileDynamic
     public void inicializaThreadContext() {
         pineduTenantThreadLocalContext.init("${configPath}/${configFileName}")
@@ -101,6 +111,7 @@ class PineduConfigTenantService {
             writer.write(formattedContent.toString())
         }
     }
+    @Deprecated
     @Transactional
     void inclueDummyTenants() {
         //["joao", "pedro", "antonio", "jose", "felipe", "alberto"].each {
@@ -111,6 +122,7 @@ class PineduConfigTenantService {
             inclueDummyTenantContext(tenantInstance)
         }
     }
+    @Deprecated
     @Transactional
     void inclueDummyTenantContext(Tenant tenantInstance) {
         String domainPosName = 'local.net'

@@ -108,6 +108,9 @@ databaseChangeLog = {
 		createIndex(indexName: "idxBaiCid", tableName: "bairro") {
 			column(name: "cidade_id")
 		}
+		createIndex(indexName: "idxBaiAtivo", tableName: "bairro") {
+			column(name: "ativo")
+		}
 		createIndex(indexName: "idxBaiDis", tableName: "bairro") {
 			column(name: "distrito_id")
 		}
@@ -128,6 +131,21 @@ databaseChangeLog = {
 		}
 		createIndex(indexName: "idxCamVei", tableName: "campanha") {
 			column(name: "veiculo_id")
+		}
+		createIndex(indexName: "idxClickCookie", tableName: "click") {
+			column(name: "cookie")
+		}
+		createIndex(indexName: "idxClickDt", tableName: "click") {
+			column(name: "date_created")
+		}
+		createIndex(indexName: "idxClickAction", tableName: "click") {
+			column(name: "action")
+		}
+		createIndex(indexName: "idxClickSite", tableName: "click") {
+			column(name: "site")
+		}
+		createIndex(indexName: "idxClickImovel", tableName: "click") {
+			column(name: "imovel_id")
 		}
 		createIndex(indexName: "idxCanal", tableName: "email") {
 			column(name: "canal")
@@ -158,6 +176,9 @@ databaseChangeLog = {
 		}
 		createIndex(indexName: "idxCidChaveDNE", tableName: "cidade") {
 			column(name: "chavedne")
+		}
+		createIndex(indexName: "idxCidAtivo", tableName: "cidade") {
+			column(name: "ativo")
 		}
 		createIndex(indexName: "idxCidCorretUf", tableName: "cidade_corretagem") {
 			column(name: "uf_id")
@@ -859,6 +880,9 @@ databaseChangeLog = {
 		createIndex(indexName: "idxLogCep", tableName: "logradouro") {
 			column(name: "cep")
 		}
+		createIndex(indexName: "idxLogAtivo", tableName: "logradouro") {
+			column(name: "ativo")
+		}
 		createIndex(indexName: "idxLogChaveDNE", tableName: "logradouro") {
 			column(name: "chavedne")
 		}
@@ -1207,6 +1231,9 @@ databaseChangeLog = {
 		}
 		createIndex(indexName: "idxUfNome", tableName: "estado", unique: "true") {
 			column(name: "nome")
+		}
+		createIndex(indexName: "idxUfAtivo", tableName: "estado") {
+			column(name: "ativo")
 		}
 		createIndex(indexName: "idxUsuCart", tableName: "usuario") {
 			column(name: "carteira_id")

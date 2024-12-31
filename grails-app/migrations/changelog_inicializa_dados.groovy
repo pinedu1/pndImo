@@ -197,7 +197,11 @@ databaseChangeLog = {
 				sql.execute("""
 				UPDATE tipo_imovel SET texto_anuncio = REPLACE(texto_anuncio, '\\n', E'\n');
 				UPDATE nota_promissoria SET observacoes = REPLACE(observacoes, '\\n', E'\n');
+				UPDATE texto_sistema SET conteudo = REPLACE(conteudo, '\\n', E'\n');
 				UPDATE arquivo_binario SET binario = decode( replace( base64, '\\n', E'\\n' ), 'base64' );
+				UPDATE cidade SET ativo = true;
+				UPDATE bairro SET ativo = true;
+				UPDATE logradouro SET ativo = true;
 				ALTER TABLE arquivo_binario DROP COLUMN base64;
 				""")
 			}

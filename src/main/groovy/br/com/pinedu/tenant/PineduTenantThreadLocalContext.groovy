@@ -5,6 +5,15 @@ import groovy.transform.CompileStatic
 
 import java.util.concurrent.ConcurrentHashMap
 
+/**
+ * Esta classe armazenará em tempo de execução os Tenants ativos.
+ *
+ * Estes Tenants serão recolhidos em Tempo de BOOT a partir do arquivo:
+ * -/pinedu/config/appImo.properties
+ *
+ * Estes Tenants servirão para resolver o CONTEXTO em
+ * - PineduTenantResolver
+ */
 @CompileStatic
 class PineduTenantThreadLocalContext {
 	private static final ConcurrentHashMap<String, Map<String, Object>> MAPA_CONTEXTO = new ConcurrentHashMap()

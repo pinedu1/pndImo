@@ -21,6 +21,10 @@ databaseChangeLog = {
     * */
     include file: 'changelog_inicializa_FK.groovy'
     /*
+    * Views
+    * */
+    include file: 'changelog_inicializa_views.groovy'
+    /*
     * Teste para implementação
     * */
     include file: 'changelog_teste.groovy'

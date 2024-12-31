@@ -66,8 +66,8 @@ databaseChangeLog = {
 			column(name: "class", type: "VARCHAR(255)") {
 				constraints(nullable: "false")
 			}
-			column(name: "interessado_id", type: "BIGINT")
 			column(name: "imovel_id", type: "BIGINT")
+			column(name: "interessado_id", type: "BIGINT")
 			column(name: "venda_id", type: "BIGINT")
 			column(name: "proposta_id", type: "BIGINT")
 		}
@@ -213,6 +213,7 @@ databaseChangeLog = {
 			column(name: "sistema", type: "BOOLEAN") {
 				constraints(nullable: "false")
 			}
+			column(name: "ativo", type: "BOOLEAN")
 			column(name: "cidade_id", type: "BIGINT") {
 				constraints(nullable: "false")
 			}
@@ -352,7 +353,8 @@ databaseChangeLog = {
 			column(name: "veiculocp", type: "BIGINT")
 			column(name: "descricao", type: "CLOB")
 			column(name: "custo_total", type: "NUMBER(10, 2)") {
-				constraints(nullable: "false")
+				constraints(nullable: "false")	String action
+
 			}
 			column(name: "nome", type: "VARCHAR(72)") {
 				constraints(nullable: "false")
@@ -392,7 +394,8 @@ databaseChangeLog = {
 				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "chaves_devolverPK")
 			}
 			column(name: "status_imovel", type: "VARCHAR(1)") {
-				constraints(nullable: "false")
+				constraints(nullable: "false")	String action
+
 			}
 			column(name: "imovel_id", type: "BIGINT") {
 				constraints(nullable: "false")
@@ -401,6 +404,44 @@ databaseChangeLog = {
 				constraints(nullable: "false")
 			}
 			column(name: "observacoes", type: "CLOB")
+		}
+		createTable(tableName: "click") {
+			column(name: "id", type: "VARCHAR(32)") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "clickPK")
+			}
+			column(name: "cookie", type: "VARCHAR(255)") {
+				constraints(nullable: "false")
+			}
+			column(name: "action", type: "VARCHAR(255)") {
+				constraints(nullable: "false")
+			}
+			column(name: "date_created", type: "timestamp") {
+				constraints(nullable: "false")
+			}
+			column(name: "last_updated", type: "timestamp") {
+				constraints(nullable: "false")
+			}
+			column(name: "class", type: "VARCHAR(255)") {
+				constraints(nullable: "false")
+			}
+			column(name: "site", type: "VARCHAR(255)")
+		}
+		createTable(tableName: "click_parametro") {
+			column(name: "id", type: "VARCHAR(32)") {
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "clickPK")
+			}
+			column(name: "key", type: "VARCHAR(255)") {
+				constraints(nullable: "false")
+			}
+			column(name: "value", type: "VARCHAR(255)") {
+				constraints(nullable: "false")
+			}
+			column(name: "click_id", type: "VARCHAR(32)") {
+				constraints(nullable: "false")
+			}
+			column(name: "date_created", type: "timestamp") {
+				constraints(nullable: "false")
+			}
 		}
 		createTable(tableName: "cidade") {
 			column(name: "id", type: "BIGINT") {
@@ -414,6 +455,7 @@ databaseChangeLog = {
 			column(name: "sistema", type: "BOOLEAN") {
 				constraints(nullable: "false")
 			}
+			column(name: "ativo", type: "BOOLEAN")
 			column(name: "codibge", type: "INT")
 			column(name: "cidade_pai_id", type: "BIGINT")
 			column(name: "cep2f", type: "VARCHAR(8)")
@@ -932,7 +974,7 @@ databaseChangeLog = {
 			column(name: "sistema", type: "BOOLEAN")
 			column(name: "padrao", type: "BOOLEAN")
 			column(name: "descricao", type: "CLOB")
-			column(name: "nome", type: "VARCHAR(25)") {
+			column(name: "nome", type: "VARCHAR(30)") {
 				constraints(nullable: "false")
 			}
 			column(name: "ativo", type: "BOOLEAN")
@@ -1400,7 +1442,11 @@ databaseChangeLog = {
 				constraints(nullable: "false")
 			}
 			column(name: "cliente_id", type: "VARCHAR(255)")
-			column(name: "email", type: "VARCHAR(70)")
+			column(name: "email", type: "VARCHAR(70)") {
+				constraints(nullable: "false")
+			}
+			column(name: "recebe_email", type: "BOOLEAN")
+			column(name: "permuta", type: "BOOLEAN")
 		}
 		createTable(tableName: "imovel_saldo") {
 			column(name: "id", type: "VARCHAR(32)") {
@@ -1823,6 +1869,7 @@ databaseChangeLog = {
 			column(name: "sistema", type: "BOOLEAN") {
 				constraints(nullable: "false")
 			}
+			column(name: "ativo", type: "BOOLEAN")
 			column(name: "bairro_ini_id", type: "BIGINT")
 			column(name: "grande_usuario", type: "VARCHAR(1)")
 			column(name: "numero_complemento", type: "VARCHAR(11)")
@@ -2178,7 +2225,6 @@ databaseChangeLog = {
 				constraints(nullable: "false")
 			}
 			column(name: "estado_civil", type: "VARCHAR(25)")
-			column(name: "twitter", type: "VARCHAR(255)")
 			column(name: "sistema", type: "BOOLEAN")
 			column(name: "inscricao", type: "VARCHAR(20)")
 			column(name: "date_created", type: "timestamp")
@@ -2201,8 +2247,12 @@ databaseChangeLog = {
 			column(name: "endereco_padrao_id", type: "VARCHAR(32)")
 			column(name: "bloquear_envio_email", type: "BOOLEAN")
 			column(name: "profissao", type: "VARCHAR(40)")
+			column(name: "face_book", type: "VARCHAR(255)")
 			column(name: "google_plus", type: "VARCHAR(255)")
+			column(name: "instagram", type: "VARCHAR(255)")
+			column(name: "site", type: "VARCHAR(255)")
 			column(name: "skype", type: "VARCHAR(255)")
+			column(name: "twitter", type: "VARCHAR(255)")
 			column(name: "nacionalidade", type: "VARCHAR(20)")
 			column(name: "nascimento_conjuge", type: "date")
 			column(name: "cpf_conjuge", type: "VARCHAR(14)")
@@ -2212,14 +2262,12 @@ databaseChangeLog = {
 			}
 			column(name: "rg_conjuge", type: "VARCHAR(20)")
 			column(name: "telefone_padrao_id", type: "VARCHAR(32)")
-			column(name: "face_book", type: "VARCHAR(255)")
 			column(name: "nome_normalizado", type: "VARCHAR(70)")
 			column(name: "cpf", type: "VARCHAR(14)")
 			column(name: "tipo_pessoa", type: "VARCHAR(1)") {
 				constraints(nullable: "false")
 			}
 			column(name: "nome_conjuge", type: "VARCHAR(70)")
-			column(name: "site", type: "VARCHAR(255)")
 			column(name: "rg_data_expedicao", type: "timestamp")
 			column(name: "observacoes", type: "CLOB")
 			column(name: "rg_orgao_emissor", type: "VARCHAR(40)")
