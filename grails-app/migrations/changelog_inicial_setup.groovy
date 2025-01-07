@@ -394,7 +394,7 @@ databaseChangeLog = {
 				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "chaves_devolverPK")
 			}
 			column(name: "status_imovel", type: "VARCHAR(1)") {
-				constraints(nullable: "false")	String action
+				constraints(nullable: "false")
 
 			}
 			column(name: "imovel_id", type: "BIGINT") {
