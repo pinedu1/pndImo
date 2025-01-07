@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-databases=( "pnd" "joao" "penta" )
+databases=( "pnd" "penta" )
 HTTPD_ROOT_PATH="/pinedu/contexts"
 #databases=( "pnd" "antonio" "jose" "alberto" "vendas" )
 for db in "${databases[@]}"; do

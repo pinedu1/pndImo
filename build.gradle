@@ -26,7 +26,7 @@ plugins {
     id 'org.graalvm.buildtools.native' version '0.10.3'
 }
 group = "br.com.pinedu"
-apply from: "gradle/asciidoc.gradle"
+//apply from: "gradle/asciidoc.gradle"
 //apply plugin:"org.grails.grails-database-migration"
 
 repositories {

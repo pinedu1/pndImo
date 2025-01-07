@@ -9,7 +9,7 @@ FILECFG="/pinedu/config/appImo.properties"
 declare -A mapaDataBase
 
 # Adicionando chaves e valores
-#mapaDataBase["pnd"]="x8DwsDRMUvxqrq#L"
+mapaDataBase["pnd"]="x8DwsDRMUvxqrq#L"
 #mapaDataBase["joao"]="vaP#PxZC5kWsT#KR"
 mapaDataBase["penta"]="93R6J3cfXSICpkN!"
 

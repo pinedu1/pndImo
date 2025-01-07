@@ -262,86 +262,6 @@ databaseChangeLog = {
 			column(name: "ativo", type: "BOOLEAN")
 			column(name: "site", type: "VARCHAR(70)")
 		}
-		createTable(tableName: "buffer_cidade") {
-			column(name: "tipo_contrato", type: "INT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_cidadePK")
-			}
-			column(name: "status_imovel", type: "VARCHAR(255)") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_cidadePK")
-			}
-			column(name: "tipo_imovel_id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_cidadePK")
-			}
-			column(name: "cidade_id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_cidadePK")
-			}
-			column(name: "nome", type: "VARCHAR(255)") {
-				constraints(nullable: "false")
-			}
-		}
-		createTable(tableName: "buffer_faixa_valor") {
-			column(name: "tipo_contrato", type: "INT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_faixa_valorPK")
-			}
-			column(name: "faixa_valor_id", type: "VARCHAR(255)") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_faixa_valorPK")
-			}
-			column(name: "tipo_imovel_id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_faixa_valorPK")
-			}
-			column(name: "cidade_id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_faixa_valorPK")
-			}
-			column(name: "regiao_id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_faixa_valorPK")
-			}
-			column(name: "status_imovel", type: "VARCHAR(255)") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_faixa_valorPK")
-			}
-			column(name: "valor_inicial", type: "NUMBER(19, 2)") {
-				constraints(nullable: "false")
-			}
-			column(name: "valor_final", type: "NUMBER(19, 2)") {
-				constraints(nullable: "false")
-			}
-		}
-		createTable(tableName: "buffer_regiao") {
-			column(name: "tipo_contrato", type: "INT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_regiaoPK")
-			}
-			column(name: "status_imovel", type: "VARCHAR(255)") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_regiaoPK")
-			}
-			column(name: "tipo_imovel_id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_regiaoPK")
-			}
-			column(name: "cidade_id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_regiaoPK")
-			}
-			column(name: "regiao_id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_regiaoPK")
-			}
-			column(name: "nome", type: "VARCHAR(255)") {
-				constraints(nullable: "false")
-			}
-		}
-		createTable(tableName: "buffer_tipo_imovel") {
-			column(name: "tipo_contrato", type: "INT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_tipo_imovelPK")
-			}
-			column(name: "tipo_imovel_id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_tipo_imovelPK")
-			}
-			column(name: "status_imovel", type: "VARCHAR(255)") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "buffer_tipo_imovelPK")
-			}
-			column(name: "sigla", type: "VARCHAR(255)") {
-				constraints(nullable: "false")
-			}
-			column(name: "nome", type: "VARCHAR(255)") {
-				constraints(nullable: "false")
-			}
-		}
 		createTable(tableName: "campanha") {
 			column(name: "id", type: "BIGINT") {
 				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "campanhaPK")
@@ -353,7 +273,7 @@ databaseChangeLog = {
 			column(name: "veiculocp", type: "BIGINT")
 			column(name: "descricao", type: "CLOB")
 			column(name: "custo_total", type: "NUMBER(10, 2)") {
-				constraints(nullable: "false")	String action
+				constraints(nullable: "false")
 
 			}
 			column(name: "nome", type: "VARCHAR(72)") {
@@ -428,7 +348,7 @@ databaseChangeLog = {
 		}
 		createTable(tableName: "click_parametro") {
 			column(name: "id", type: "VARCHAR(32)") {
-				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "clickPK")
+				constraints(nullable: "false", primaryKey: "true", primaryKeyName: "clickParPK")
 			}
 			column(name: "key", type: "VARCHAR(255)") {
 				constraints(nullable: "false")

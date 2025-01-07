@@ -144,9 +144,6 @@ databaseChangeLog = {
 		createIndex(indexName: "idxClickSite", tableName: "click") {
 			column(name: "site")
 		}
-		createIndex(indexName: "idxClickImovel", tableName: "click") {
-			column(name: "imovel_id")
-		}
 		createIndex(indexName: "idxCanal", tableName: "email") {
 			column(name: "canal")
 		}
