@@ -1966,10 +1966,12 @@ databaseChangeLog = {
 			column(name: "date_created", type: "timestamp") {
 				constraints(nullable: "false")
 			}
-			column(name: "ultimo_acesso", type: "timestamp")
 			column(name: "binario", type: "BYTEA") {
 				constraints(nullable: "false")
 			}
+			column(name: "ultimo_acesso", type: "timestamp")
+			column(name: "myme_type", type: "VARCHAR(60)")
+			column(name: "nome", type: "VARCHAR(60)")
 		}
 		createTable(tableName: "moeda") {
 			column(name: "id", type: "BIGINT") {
